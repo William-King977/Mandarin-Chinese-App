@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>English and Characters</title>
+<link rel = "stylesheet" type = "text/css" href = "CSS/CSS For All Memory Games.css"></link>
+
+<h1>English and Characters Memory Game</h1>
+
+<input class="MemoryBack" onClick="window.location.href = '6) Memory Game Menu.html'" type="button" value="Back"/>
+
+<script>
+
+var ni = '\u4F60';
+var nin = '\u60A8';
+var hao = '\u597D';
+var wo = '\u6211';
+var hen = '\u5F88';
+var ma = '\u5417';
+//The characters have their unicode representations stored in variables in order for them to be easily recognise throughout the code.  
+	
+var CharList = ['You', ni,'You (Polite)', nin, 'Good', hao, 'I, me', wo, 'Very', hen, 'Interrogative word', ma];
+var NumTilesSelected = [];
+//An array that will contain the tile values that are selected by the user  
+
+var memory_tile_ids = [];
+//An array that will contain memory tile IDs that the user selects  
+
+var Tiles_Flipped = 0;
+//This variable will contain the total number of tiles that are matched. This will be compared with the total number of tiles at the end of each match.
+
+Array.prototype.memory_tile_shuffle = function(){
+    var i = this.length, j, temp;
+    while(--i > 0){
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
+}
+//This code is the shuffle method used to randomise the values in ‘CharList’. The code was found through research on the internet.
+
+function newBoard(){
+	Tiles_Flipped = 0;
+	//The number of tiles flipped is reset to zero when generating a new board.  
+	
+	var Tiles_Generated = '';
+	//The variable 'Tiles_Generated' is set.
+	
+    CharList.memory_tile_shuffle();
+	//The shuffle method is applied to 'CharList'.  
+	
+	for(var i = 0; i < CharList.length; i++){
+		Tiles_Generated += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+CharList[i]+'\')"></div>';
+	}
+	//'CharList' is searched and a tile is added in the variable 'Tiles_Generated' for every value in 'CharList'.   
+	
+	document.getElementById('memory_board').innerHTML = Tiles_Generated;
+	//At the end of the 'FOR' loop, the contents of 'Tiles_Generated' (the tiles) is equated to the memory board   
+}
+
+function memoryFlipTile(tile,value){
+	if(tile.innerHTML == "" && NumTilesSelected.length < 2){
+	//The code will run if a tile is not currently selected, but clicked on and there are less than two tiles selected.
+	
+		tile.style.background = 'White';
+		//The background of the tile will be white when selected.
+		
+		tile.innerHTML = value;
+		//When the tile is flipped, the tile will display the value.  
+		if(NumTilesSelected.length == 0){
+		//The code will run if a tile is selected, but there is nothing in the 'NumTilesSelected' arrays.  
+		
+			NumTilesSelected.push(value);
+			memory_tile_ids.push(tile.id);
+			//The tile value will be added to the 'NumTilesSelected' array and the tile ID will be added to the 'memory_tile_ids' array.
+			
+		} else if(NumTilesSelected.length == 1){
+		  //The code will run if there is already a value in 'NumTilesSelected' array meaning that there will be two values after the next part of the code has run.
+		  
+			NumTilesSelected.push(value);
+			memory_tile_ids.push(tile.id);
+			//Adds the tile values and IDs into their respective arrays.
+			
+			if(NumTilesSelected[0] == 'You' && NumTilesSelected[1] == ni || NumTilesSelected[0] == ni && NumTilesSelected[1] == 'You' || NumTilesSelected[0] == 'You (Polite)' && NumTilesSelected[1] == nin || NumTilesSelected[0] == nin && NumTilesSelected[1] == 'You (Polite)' || NumTilesSelected[0] == 'Good' && NumTilesSelected[1] == hao || NumTilesSelected[0] == hao && NumTilesSelected[1] == 'Good' || NumTilesSelected[0] == 'I, me' && NumTilesSelected[1] == wo || NumTilesSelected[0] == wo && NumTilesSelected[1] == 'I, me' || NumTilesSelected[0] == 'Very' && NumTilesSelected[1] == hen || NumTilesSelected[0] == hen && NumTilesSelected[1] == 'Very' || NumTilesSelected[0] == 'Interrogative word' && NumTilesSelected[1] == ma || NumTilesSelected[0] == ma && NumTilesSelected[1] == 'Interrogative word'){
+				//A massive 'IF' statement which will compare all the possible value combinations for this specific memory game. If one of the statements are true (meaning that the tiles match), then the code below will run. 
+				 
+				Tiles_Flipped += 2;
+				//If there is a match with the two tiles, then two will be added to the total number of tiles selected.
+				
+				NumTilesSelected = [];
+            	memory_tile_ids = [];
+				//Both arrays are cleared. 
+				 
+				if(Tiles_Flipped == CharList.length){
+				// Check to see if the whole board is cleared
+				
+					alert("Board cleared... generating new board");
+					document.getElementById('memory_board').innerHTML = "";              
+					//This will empty the memory board in order for a new one to be created. 
+					 
+					newBoard();
+					//This calls the ‘newBoard’ function to create a new board.
+					
+				}
+			} else {
+			  //The code below will run if the tiles selected do not match.  
+				function flip_tiles_Back(){
+				// Flip the 2 tiles back over
+				
+				    var tile_1 = document.getElementById(memory_tile_ids[0]);
+					//The first tile ID in the array is stored in a variable
+					
+				    var tile_2 = document.getElementById(memory_tile_ids[1]);
+					//The second tile ID in the array is stored in a variable   
+					
+            	    tile_1.innerHTML = "";
+            	    tile_2.innerHTML = "";
+				    //Both variables are cleared in order for both tiles to be flipped back over. 
+					
+				    NumTilesSelected = [];
+            	    memory_tile_ids = [];
+					//Both arrays are cleared.
+				}
+				setTimeout(flip_tiles_Back, 700);
+				// The time it takes for the cards to flip back over
+			}
+		}
+	}
+}
+</script>
+</head>
+<body>
+<div id="memory_board"></div>
+<!--Just like the boxes in the sentence pages. The ‘div’ tags will act as a section of the HTML page and CSS will be used to create the memory board.-->
+
+<script>newBoard();</script>
+<!--The function ‘newBoard’ is called here. This will mean that the function will run when the page opens on the web browser otherwise the code in the functions will not run at all.-->
+</body>
+</html>

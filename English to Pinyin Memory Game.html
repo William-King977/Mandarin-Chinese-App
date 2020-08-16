@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>English and Pinyin</title>
+<link rel = "stylesheet" type = "text/css" href = "CSS/CSS For All Memory Games.css"></link>
+<h1>English and Pinyin Memory Game</h1>
+
+<input class="MemoryBack" onClick="window.location.href = '6) Memory Game Menu.html'" type="button" value="Back"/>
+
+<script>
+
+var ni = '\u4F60';
+var nin = '\u60A8';
+var hao = '\u597D';
+var wo = '\u6211';
+var hen = '\u5F88';
+var ma = '\u5417';
+
+var You = 'n'+'i\u030C';
+var YouP = 'n'+'\xED'+'n';
+var Good = 'h'+'a\u030C'+'o';
+var Me = 'w'+'o\u030C';
+var Very = 'h'+'e\u030C'+'n';
+var Inter = 'ma';
+
+var CharList = ['You', You, 'You (Polite)', YouP, 'Good', Good, 'I, me', Me, 'Very', Very, 'Interrogative word', Inter];
+var NumTilesSelected = [];
+var memory_tile_ids = [];
+var Tiles_Flipped = 0;
+Array.prototype.memory_tile_shuffle = function(){
+    var i = this.length, j, temp;
+    while(--i > 0){
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
+}
+function newBoard(){
+	Tiles_Flipped = 0;
+	var Tiles_Generated  = '';
+    CharList.memory_tile_shuffle();
+	for(var i = 0; i < CharList.length; i++){
+		Tiles_Generated  += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+CharList[i]+'\')"></div>';
+	}
+	document.getElementById('memory_board').innerHTML = Tiles_Generated ;
+}
+function memoryFlipTile(tile,value){
+	if(tile.innerHTML == "" && NumTilesSelected.length < 2){
+		tile.style.background = 'White';
+		tile.innerHTML = value;
+		if(NumTilesSelected.length == 0){
+			NumTilesSelected.push(value);
+			memory_tile_ids.push(tile.id);
+		} else if(NumTilesSelected.length == 1){
+			NumTilesSelected.push(value);
+			memory_tile_ids.push(tile.id);
+			if(NumTilesSelected[0] == 'You' && NumTilesSelected[1] == You || NumTilesSelected[0] == You && NumTilesSelected[1] == 'You' || NumTilesSelected[0] == 'You (Polite)' && NumTilesSelected[1] == YouP || NumTilesSelected[0] == YouP && NumTilesSelected[1] == 'You (Polite)' || NumTilesSelected[0] == 'Good' && NumTilesSelected[1] == Good || NumTilesSelected[0] == Good && NumTilesSelected[1] == 'Good' || NumTilesSelected[0] == 'I, me' && NumTilesSelected[1] == Me || NumTilesSelected[0] == Me && NumTilesSelected[1] == 'I, me' || NumTilesSelected[0] == 'Very' && NumTilesSelected[1] == Very || NumTilesSelected[0] == Very && NumTilesSelected[1] == 'Very' || NumTilesSelected[0] == 'Interrogative word' && NumTilesSelected[1] == Inter || NumTilesSelected[0] == Inter && NumTilesSelected[1] == 'Interrogative word'){
+				Tiles_Flipped += 2;
+				NumTilesSelected = [];
+            	memory_tile_ids = [];
+				if(Tiles_Flipped == CharList.length){
+					alert("Board cleared... generating new board");
+					document.getElementById('memory_board').innerHTML = "";
+					newBoard();
+				}
+			} else {
+				function flip_Tiles_Back(){
+				    var tile_1 = document.getElementById(memory_tile_ids[0]);
+				    var tile_2 = document.getElementById(memory_tile_ids[1]);
+            	    tile_1.innerHTML = "";
+            	    tile_2.innerHTML = "";
+				    // Clear both arrays
+				    NumTilesSelected = [];
+            	    memory_tile_ids = [];
+				}
+				setTimeout(flip_Tiles_Back, 700);
+			}
+		}
+	}
+}
+</script>
+</head>
+<body>
+<div id="memory_board"></div>
+<script>newBoard();</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+h1 {
+	text-align: center;
+	font-family: calibri;
+	font-size: 40;
+}
+
+
+.EngToChar {
+	border-radius: 5px;
+	height: 75px;
+	width: 200px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20;
+	position: absolute;
+	left: calc(50% - 100px);
+}
+
+.EngToPin {
+	border-radius: 5px;
+	height: 75px;
+	width: 200px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20;
+	position: absolute;
+	left: calc(50% - 100px);
+	margin-top: 95px;
+}
+
+.CharToPin {
+	border-radius: 5px;
+	height: 75px;
+	width: 200px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20;
+	position: absolute;
+	left: calc(50% - 100px);
+	margin-top: 195px;
+}
+
+.MemoryGameBack {
+	border-radius: 5px;
+	height: 37.5px;
+	width: 100px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24;
+	position: absolute;
+	left: calc(50% - 50px);
+	margin-top: 290px;
+}

@@ -1,0 +1,96 @@
+h1 {
+	text-align: center;
+	font-family: calibri;
+	font-size: 40;
+}
+
+
+.ni {
+	border-radius: 5px;
+	height: 100px;
+	width: 125px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 50;
+	position: absolute;
+	right: calc(50% + 15px);
+}
+
+.nin {
+	border-radius: 5px;
+	height: 100px;
+	width: 125px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 50;
+	position: absolute;
+	left: calc(50% + 15px);
+}
+
+.hao {
+	border-radius: 5px;
+	height: 100px;
+	width: 125px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 50;
+	position: absolute;
+	right: calc(50% + 15px);
+	margin-top: 120;
+}
+
+.wo {
+	border-radius: 5px;
+	height: 100px;
+	width: 125px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 50;
+	position: absolute;
+	left: calc(50% + 15px);
+	margin-top: 120;
+}
+
+.hen {
+	border-radius: 5px;
+	height: 100px;
+	width: 125px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 50;
+	position: absolute;
+	right: calc(50% + 15px);
+	margin-top: 240;
+}
+
+.ma {
+	border-radius: 5px;
+	height: 100px;
+	width: 125px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 50;
+	position: absolute;
+	left: calc(50% + 15px);
+	margin-top: 240;
+}
+
+.NewCharactersBack {
+	border-radius: 5px;
+	height: 37.5px;
+	width: 100px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24;
+	position: absolute;
+	left: calc(50% - 50px);
+	margin-top: 360px;
+}
+

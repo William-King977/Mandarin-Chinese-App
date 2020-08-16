@@ -1,0 +1,30 @@
+h1 {
+	text-align: center;
+	font-family: calibri;
+	font-size: 40;
+}
+
+.AllCharAndSentencesTable {
+	font-family: calibri;
+	width: 1000px;
+	font-size: 24;
+	position: absolute;
+	left: calc(50% - 500px);
+	
+}
+
+
+.AllCharAndSentencesBack {
+	border-radius: 5px;
+	height: 37.5px;
+	width: 100px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24;
+	position: absolute;
+	left: calc(50% - 50px);
+	margin-top: 475px;
+}
+
+

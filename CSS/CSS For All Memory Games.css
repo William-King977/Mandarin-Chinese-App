@@ -1,0 +1,42 @@
+
+h1 {
+	text-align: center;
+	font-family: calibri;
+	font-size: 40;
+}
+
+div#memory_board{
+	width:650px;
+	height:490px;
+	padding:24px;
+	margin:0px auto;
+	border-radius: 5px;
+	border: #000 1px solid;
+}
+
+div#memory_board > div{
+	border:#000 1px solid;
+	border-radius: 5px;
+	width:100px;
+	height:100px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:30px;
+	cursor:pointer;
+	text-align: center;
+	font-family: calibri;
+}
+
+.MemoryBack {
+	border-radius: 5px;
+	height: 37.5px;
+	width: 100px;
+	font-family: calibri;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24;
+	margin-top: 560px;
+	position: absolute;
+	left: calc(50% - 50px);
+}
