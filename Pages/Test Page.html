@@ -74,24 +74,17 @@ var questionSet2 = [
 
 var questionSet3 = [
 	[ "Select the word matching: \u4F60", "You", "You (Polite Version)", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)", "Good, fine", "B" ],
-	
     [ "Select the word matching: \u60A8", "You (Polite Version)", "I, me", "Interrogative word (used at the end of a statement to form a question)", "You", "You (Polite Version)", "Good, fine", "Very", "D" ],
-	
     [ "Select the word matching: \u597D", "Good, fine", "You (Polite Version)", "Very", "Good, fine", "I, me", "Interrogative word (used at the end of a statement to form a question)", "You", "C" ],
-	
 	[ "Select the word matching:\u6211", "I, me", "Very", "You", "Good, fine", "Interrogative word (used at the end of a statement to form a question)", "I, me", "You (Polite Version)", "E" ],
-	
 	[ "Select the word matching: \u5F88", "Very", "Very", "Good, fine", "Interrogative word (used at the end of a statement to form a question)", "You", "I, me", "You (Polite Version)", "A" ],
-	
 	[ "Select the word matching: \u5417", "Interrogative word (used at the end of a statement to form a question)", "You (Polite Version)", "Good, fine", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)", "F" ],
-	
     [ "Select the character matching: You", ni, wo, ni, nin, hao, ma, hen, "B" ],
 	[ "Select the character matching: You (Polite Version)", nin, nin, hen, wo, ma, ni, hao, "A" ],
 	[ "Select the character matching: Good, fine", hao, ma, hao, nin, ni, hen, wo, "B" ],
 	[ "Select the character matching: I, me", wo, hen, nin, ni, hao, ma, wo, "F" ],
 	[ "Select the character matching: Very", hen, hao, wo, ma, hen, ni, nin, "D" ],
 	[ "Select the character matching: Interrogative word (used at the end of a statement to form a question)", ma, ni, hao, ma, hen, wo, nin, "C" ],
-	
 ];
 //'questionSet3' stores the third type of questions that the user can receive. This is also a 2-D array with questions that require the user to select
 //a character or word matching with the word or charcter that is displayed. The last element of each question array holds the letter to the answer.
@@ -116,9 +109,7 @@ for (var index=0; questions.length < 10; index = index +1) {
 		questions.push(questionSet2[index]);
 		//A question from 'questionSet2' will be added to the 'questions' array, but this means that there will be more questions from 'questionSet2' than
 		//any of the other questions.
-	}
-
-	else{
+	} else {
 		questions.push(questionSet1[index]);
 		questions.push(questionSet2[index]);
 		questions.push(questionSet3[index]);
@@ -130,7 +121,9 @@ var questionOrder = [];
 //This global array will hold numbers which will represent the order that the questions will be displayed.
 
 function setQuestionOrder() {
-  for (var i=0; i< 10; i++){ questionOrder.push(i); }
+  for (var i=0; i< 10; i++) {
+      questionOrder.push(i); 
+  }
 
   questionOrder.sort(randOrd);
   //When the 'FOR' loop has been executed, the 'questionOrder' array will be randomised. This will mean that the questions will display in a random order.
@@ -190,7 +183,8 @@ function results() {
 	//All the cells in the first row are given a border to highlight the individual cells. This will be done to all the other rows.
 	
 	
-	var row2col1 = row2.insertCell(0); row2col1.innerHTML = userQuestion[0][0]; var row2col2 = row2.insertCell(1); row2col2.innerHTML = userAnswer[0]; 
+	var row2col1 = row2.insertCell(0); row2col1.innerHTML = userQuestion[0][0]; 
+	var row2col2 = row2.insertCell(1); row2col2.innerHTML = userAnswer[0]; 
 	var row2col3 = row2.insertCell(2); row2col3.innerHTML = userQuestion[0][1];
 	//The same action will be done as above, adding 3 cells for the second row and this will continue until the 11th row. 
 	
@@ -202,121 +196,119 @@ function results() {
 		row2col2.style.border += "#008000";
 	//The cell for the second cell on the second row will be changed to green to indicate that the user's answer was correct. The hexadecimal value of the colour green is used. The colour changes will be done for all the cells in the second coloumn.
 	
-	}
-	else {
+	} else {
 		row2col2.style.border += "#FF0000";
 	//The cell for second cell on the second row will be changed to red to indicate that the user's answer was incorrect. 
-	
 	}
 	
-	var row3col1 = row3.insertCell(0); row3col1.innerHTML = userQuestion[1][0]; var row3col2 = row3.insertCell(1); row3col2.innerHTML = userAnswer[1]; 
+	var row3col1 = row3.insertCell(0); row3col1.innerHTML = userQuestion[1][0]; 
+	var row3col2 = row3.insertCell(1); row3col2.innerHTML = userAnswer[1]; 
 	var row3col3 = row3.insertCell(2); row3col3.innerHTML = userQuestion[1][1]; 
 	row3col1.style.border = "solid";
 	row3col2.style.border = "solid";
 	row3col3.style.border = "solid";
 	if (questionStatus[1] == "Correct") {
 		row3col2.style.border += "#008000";
-	}
-	else {
+	} else {
 		row3col2.style.border += "#FF0000";
 	}
 	
 
-	var row4col1 = row4.insertCell(0); row4col1.innerHTML = userQuestion[2][0]; var row4col2 = row4.insertCell(1); row4col2.innerHTML = userAnswer[2]; 
+	var row4col1 = row4.insertCell(0); row4col1.innerHTML = userQuestion[2][0]; 
+	var row4col2 = row4.insertCell(1); row4col2.innerHTML = userAnswer[2]; 
 	var row4col3 = row4.insertCell(2); row4col3.innerHTML = userQuestion[2][1];
 	row4col1.style.border = "solid";
 	row4col2.style.border = "solid";
 	row4col3.style.border = "solid";
 	if (questionStatus[2] == "Correct") {
 		row4col2.style.border += "#008000"; 
-	}
-	else {
+	} else {
 		row4col2.style.border += "#FF0000";
 	}
 	
-	var row5col1 = row5.insertCell(0); row5col1.innerHTML = userQuestion[3][0]; var row5col2 = row5.insertCell(1); row5col2.innerHTML = userAnswer[3]; 
+	var row5col1 = row5.insertCell(0); row5col1.innerHTML = userQuestion[3][0]; 
+	var row5col2 = row5.insertCell(1); row5col2.innerHTML = userAnswer[3]; 
 	var row5col3 = row5.insertCell(2); row5col3.innerHTML = userQuestion[3][1];
 	row5col1.style.border = "solid";
 	row5col2.style.border = "solid";
 	row5col3.style.border = "solid";
 	if (questionStatus[3] == "Correct") {
 		row5col2.style.border += "#008000"; 
-	}
-	else {
+	} else {
 		row5col2.style.border += "#FF0000";
 	}
 	
-	var row6col1 = row6.insertCell(0); row6col1.innerHTML = userQuestion[4][0]; var row6col2 = row6.insertCell(1); row6col2.innerHTML = userAnswer[4]; 
+	var row6col1 = row6.insertCell(0); row6col1.innerHTML = userQuestion[4][0]; 
+	var row6col2 = row6.insertCell(1); row6col2.innerHTML = userAnswer[4]; 
 	var row6col3 = row6.insertCell(2); row6col3.innerHTML = userQuestion[4][1];
 	row6col1.style.border = "solid";
 	row6col2.style.border = "solid";
 	row6col3.style.border = "solid";
 	if (questionStatus[4] == "Correct") {
 		row6col2.style.border += "#008000"; 
-	}
-	else {
+	} else {
 		row6col2.style.border += "#FF0000";
 	}
 	
 	
-	var row7col1 = row7.insertCell(0); row7col1.innerHTML = userQuestion[5][0]; var row7col2 = row7.insertCell(1); row7col2.innerHTML = userAnswer[5]; 
+	var row7col1 = row7.insertCell(0); row7col1.innerHTML = userQuestion[5][0]; 
+	var row7col2 = row7.insertCell(1); row7col2.innerHTML = userAnswer[5]; 
 	var row7col3 = row7.insertCell(2); row7col3.innerHTML = userQuestion[5][1];
 	row7col1.style.border = "solid";
 	row7col2.style.border = "solid";
 	row7col3.style.border = "solid";
 	if (questionStatus[5] == "Correct") {
 		row7col2.style.border += "#008000";
-	}
-	else {
+	} else {
 		row7col2.style.border += "#FF0000";
 	}
 	
-	var row8col1 = row8.insertCell(0); row8col1.innerHTML = userQuestion[6][0]; var row8col2 = row8.insertCell(1); row8col2.innerHTML = userAnswer[6]; 
+	var row8col1 = row8.insertCell(0); row8col1.innerHTML = userQuestion[6][0]; 
+	var row8col2 = row8.insertCell(1); row8col2.innerHTML = userAnswer[6]; 
 	var row8col3 = row8.insertCell(2); row8col3.innerHTML = userQuestion[6][1];
 	row8col1.style.border = "solid";
 	row8col2.style.border = "solid";
 	row8col3.style.border = "solid";
 	if (questionStatus[6] == "Correct") {
 		row8col2.style.border += "#008000"; 
-	}
-	else {
+	} else {
 		row8col2.style.border += "#FF0000";
 	}
 	
 	
-	var row9col1 = row9.insertCell(0); row9col1.innerHTML = userQuestion[7][0]; var row9col2 = row9.insertCell(1); row9col2.innerHTML = userAnswer[7]; 
+	var row9col1 = row9.insertCell(0); row9col1.innerHTML = userQuestion[7][0]; 
+	var row9col2 = row9.insertCell(1); row9col2.innerHTML = userAnswer[7]; 
 	var row9col3 = row9.insertCell(2); row9col3.innerHTML = userQuestion[7][1];
 	row9col1.style.border = "solid";
 	row9col2.style.border = "solid";
 	row9col3.style.border = "solid";
 	if (questionStatus[7] == "Correct") {
 		row9col2.style.border += "#008000";
-	}
-	else {
+	} else {
 		row9col2.style.border += "#FF0000";
 	}
 	
-	var row10col1 = row10.insertCell(0); row10col1.innerHTML = userQuestion[8][0]; var row10col2 = row10.insertCell(1); row10col2.innerHTML = userAnswer[8]; 
+	var row10col1 = row10.insertCell(0); row10col1.innerHTML = userQuestion[8][0]; 
+	var row10col2 = row10.insertCell(1); row10col2.innerHTML = userAnswer[8]; 
 	var row10col3 = row10.insertCell(2); row10col3.innerHTML = userQuestion[8][1];
 	row10col1.style.border = "solid";
 	row10col2.style.border = "solid";
 	row10col3.style.border = "solid";
 	if (questionStatus[8] == "Correct") {
 		row10col2.style.border += "#008000";
-	}
-	else {
+	} else {
 		row10col2.style.border += "#FF0000";
 	}
 	
-	var row11col1 = row11.insertCell(0); row11col1.innerHTML = userQuestion[9][0]; var row11col2 = row11.insertCell(1); row11col2.innerHTML = userAnswer[9]; 
+	var row11col1 = row11.insertCell(0); row11col1.innerHTML = userQuestion[9][0]; 
+	var row11col2 = row11.insertCell(1); row11col2.innerHTML = userAnswer[9]; 
 	var row11col3 = row11.insertCell(2); row11col3.innerHTML = userQuestion[9][1];
 	row11col1.style.border = "solid";
 	row11col2.style.border = "solid";
 	row11col3.style.border = "solid";
 	if (questionStatus[9] == "Correct") {
 		row11col2.style.border += "#008000";
-	}
-	else {
+	} else {
 		row11col2.style.border += "#FF0000";
 	}
 	//Code is the same as the one above.
@@ -324,8 +316,7 @@ function results() {
 	var test = document.getElementById('test');
 	//The table will be inserted into the test 'div' which will mean that the test 'div' will be equated to a variable. 
 	
-	
-	test.innerHTML = "<h2>You got "+correct+" of "+10+" questions correct</h2>";
+	test.innerHTML = "<h2>You got " + correct + " of " + 10 + " questions correct</h2>";
 	//The user's score is still shown when the user accesses their results. 
 	
 	test.innerHTML += "<h5>The answers you entered that are highlighted <span style ='color:#008000'> GREEN </span> are CORRECT. The answers highlighted in <span style ='color:#FF0000'> RED </span> are INCORRECT.</h5>"    
@@ -371,8 +362,8 @@ function renderQuestion() {
 	//A question number can't start off as 0.
 
 	if (Total != 0) {
-		getItem("test_status").innerHTML += '<br>Currently: '+(correct/Total*100).toFixed(0)+'% correct'; 
-		}
+		getItem("test_status").innerHTML += '<br>Currently: '+(correct/Total*100).toFixed(0)+'% correct';
+	}
 	//This code will run only if the user has answered at least one question. The percentage of questions the user has currently got correct in the test 
 	//will be added into the 'test_status' header and displayed under the current contents of the header. 
 
@@ -402,9 +393,7 @@ function renderQuestion() {
 
 	    test.innerHTML += "<button onclick='checkSelectAnswer()'>Submit Answer</button>";
 		//This displays the submit button and when it's clicked on, the 'checkSelectAnswer()' function will run.
-	}
-
-	else if (question.indexOf("Translate:") >= 0) {
+	} else if (question.indexOf("Translate:") >= 0) {
 	//This applies if the question has the text 'Translate:'.
 
 		test.innerHTML = "<h3>"+question+"</h3>";
@@ -417,13 +406,13 @@ function renderQuestion() {
 	}
 }
 
-function checkSelectAnswer(){
+function checkSelectAnswer() {
 //This function will run through code that will check if the user's answer was correct or not with the radio button questions.
 
 	var choices = document.getElementsByName("choices");
 	//All of the radio button choices are stored in an array and is equated to the variable 'choices'. It's stored in an array because all of the radio button are named 'choices'.
 
-	for (var i=0; i<choices.length; i++) {
+	for (var i = 0; i < choices.length; i++) {
 	//The 'FOR' loop searches in the 'choices' variable for the radio button that the user selected.
 
 		if (choices[i].checked) {
@@ -435,21 +424,22 @@ function checkSelectAnswer(){
 	var Answer_Selected = false;
 	//This variable is set to 'false' in order to check if the user has selected an answer or not after clicking the 'Submit' button.
 
-	for(var i=0; i<choices.length;i++){
-            if(choices[i].checked == true){
-                Answer_Selected = true;
-				//This 'FOR' loop goes through the same 'choices' variable again to check if the user has selected a radio button. If the user has selected a radio button then 'Answer_Selected' will be set to 'true'.
-            }
+	for (var i = 0; i < choices.length;i++) {
+        if (choices[i].checked == true) {
+            Answer_Selected = true;
+			//This 'FOR' loop goes through the same 'choices' variable again to check if the user has selected a radio button. If the user has selected a radio button then 'Answer_Selected' will be set to 'true'.
+        }
     }
-        if(Answer_Selected == false){
-		//'Answer_Selected' will remain 'false' if the user hasn't selected a radio button.
+    
+	if (Answer_Selected == false) {
+	//'Answer_Selected' will remain 'false' if the user hasn't selected a radio button.
 
-            alert("Please select an answer.");
-			//A message prompt will display the message written to let the user know that they haven't selected an answer.
+        alert("Please select an answer.");
+		//A message prompt will display the message written to let the user know that they haven't selected an answer.
 
-            return false;
-			//returning 'false' will prevent the user progressing to the next question. This will continue until the user has clicked the 'Sumbit Button' with a selected answer.
-		}
+        return false;
+		//returning 'false' will prevent the user progressing to the next question. This will continue until the user has clicked the 'Sumbit Button' with a selected answer.
+	}	
 
 	if (Choice_Selected == questions[QuestionOrderIndex][8]) {
 	//This 'IF' statement compares the last element in the current question in the 'questions' list to check if the answer is correct or not. This will apply if the answer submitted is correct.
@@ -463,37 +453,30 @@ function checkSelectAnswer(){
 		//The question the user is currently on is added into the 'userQuestion' array.
 		
 		questionStatus.push("Correct")
-			//Since the user has got the question correct, the word 'Correct' will be added into the 'questionStatus' array. This is needed to compare if the user has got a question correct or not when displaying the table. 
+		//Since the user has got the question correct, the word 'Correct' will be added into the 'questionStatus' array. This is needed to compare if the user has got a question correct or not when displaying the table. 
 		
-		if (Choice_Selected == "A") {
-		//Each of the letters are equated for an 'IF' statement in order to find out the user's selected answer and the appropriate Chinese character or English word will be found. This will represent the user's selected answer rather than one of the letters. 
-		
-			userAnswer.push(questions[QuestionOrderIndex][2])
-			//The user's selected answer will be added into the 'userAnswer' array. 	
+		//Each of the letters are equated for a Switch, Case statement in order to find out the user's selected answer and the appropriate Chinese character or English word will be found. This will represent the user's selected answer rather than one of the letters.
+		switch (Choice_Selected) {
+		    case "A":
+			    userAnswer.push(questions[QuestionOrderIndex][2]);
+				break;
+			case "B":
+				userAnswer.push(questions[QuestionOrderIndex][3]);
+				break;
+			case "C":
+				userAnswer.push(questions[QuestionOrderIndex][4]);
+				break;
+			case "D":
+			    userAnswer.push(questions[QuestionOrderIndex][5]);
+				break;
+			case "E":
+				userAnswer.push(questions[QuestionOrderIndex][6]);
+				break;
+			case "F":
+				userAnswer.push(questions[QuestionOrderIndex][7]);
+				break;	
 		}
-		
-		else if (Choice_Selected == "B") {
-			userAnswer.push(questions[QuestionOrderIndex][3])
-		}
-		
-		else if (Choice_Selected == "C") {
-			userAnswer.push(questions[QuestionOrderIndex][4])
-		}
-		
-		else if (Choice_Selected == "D") {
-			userAnswer.push(questions[QuestionOrderIndex][5])
-		}
-		
-		else if (Choice_Selected == "E") {
-			userAnswer.push(questions[QuestionOrderIndex][6])
-		}
-		
-		else if (Choice_Selected == "F") {
-			userAnswer.push(questions[QuestionOrderIndex][7])
-		}
-	}
-
-	else {
+	} else {
 	//The 'else' statement will run if the answer submitted doesn't match with the correct answer.
 
 		alert("Incorrect.");
@@ -504,28 +487,25 @@ function checkSelectAnswer(){
 		questionStatus.push("Incorrect");
 		//Since the user got the question incorrect, the word 'Incorrect' will be added into the 'questionStatus' array. This is needed in order to display an element on the tables appropriately. 
 		
-		if (Choice_Selected == "A") {
-			userAnswer.push(questions[QuestionOrderIndex][2])
-		}
-		
-		else if (Choice_Selected == "B") {
-			userAnswer.push(questions[QuestionOrderIndex][3])
-		}
-		
-		else if (Choice_Selected == "C") {
-			userAnswer.push(questions[QuestionOrderIndex][4]);
-		}
-		
-		else if (Choice_Selected == "D") {
-			userAnswer.push(questions[QuestionOrderIndex][5]);
-		}
-		
-		else if (Choice_Selected == "E") {
-			userAnswer.push(questions[QuestionOrderIndex][6]);
-		}
-		
-		else if (Choice_Selected == "F") {
-			userAnswer.push(questions[QuestionOrderIndex][7]);
+		switch (Choice_Selected) {
+		    case "A":
+			    userAnswer.push(questions[QuestionOrderIndex][2]);
+				break;
+			case "B":
+				userAnswer.push(questions[QuestionOrderIndex][3]);
+				break;
+			case "C":
+				userAnswer.push(questions[QuestionOrderIndex][4]);
+				break;
+			case "D":
+			    userAnswer.push(questions[QuestionOrderIndex][5]);
+				break;
+			case "E":
+				userAnswer.push(questions[QuestionOrderIndex][6]);
+				break;
+			case "F":
+				userAnswer.push(questions[QuestionOrderIndex][7]);
+				break;	
 		}
 	}
 	
@@ -541,9 +521,7 @@ function checkSelectAnswer(){
 
 		renderQuestion();
 		//'renderQuestion' function will display the next question.
-	}
-
-	else {
+	} else {
 	//This applies if 10 questions have been answered.
 
 		renderResults();
@@ -581,33 +559,25 @@ function checkTranslateAnswer() {
 		//The user's inputted answer will be added into the 'userAnswer' array.
 		
 		questionStatus.push("Correct");
-	}
-
-	else if (Translate_Answer == questions[QuestionOrderIndex][2]) {
+	} else if (Translate_Answer == questions[QuestionOrderIndex][2]) {
 		correct++;
 		alert("Correct.");
 		userQuestion.push(questions[QuestionOrderIndex]);
 		userAnswer.push(Translate_Answer);
 		questionStatus.push("Correct");
-	}
-
-	else if (Translate_Answer == questions[QuestionOrderIndex][3]) {
+	} else if (Translate_Answer == questions[QuestionOrderIndex][3]) {
 		correct++;
 		alert("Correct.");
 		userQuestion.push(questions[QuestionOrderIndex]);
 		userAnswer.push(Translate_Answer);
 		questionStatus.push("Correct");
-	}
-
-	else if (Translate_Answer == questions[QuestionOrderIndex][4]) {
+	} else if (Translate_Answer == questions[QuestionOrderIndex][4]) {
 		correct++;
 		alert("Correct.");
 		userQuestion.push(questions[QuestionOrderIndex]);
 		userAnswer.push(Translate_Answer);
 		questionStatus.push("Correct");
-	}
-	
-	else if (Translate_Answer.length > 70) {
+	} else if (Translate_Answer.length > 70) {
 	//Gets the length of the answer (Translate_Answer) and checks if it's greater than 70.
 	
 		alert("Please enter a suitable length answer that is less than 70 characters.")
@@ -615,16 +585,12 @@ function checkTranslateAnswer() {
 		
 		return false;
 		//'false' will prevent the user from advancing to the next question.
-	}
-
-	else if (SpacesOrNoInput.test(Translate_Answer) == true){
+	} else if (SpacesOrNoInput.test(Translate_Answer) == true){
 	//This will occur if the user submits an answer, but it doesn't have any input or if it has spaces only. 
 		alert("Please enter an answer.")
 		return false;
 	    //The prompt will display a message and 'false' will return meaning that the user will be stuck on the page until a valid input is submitted.
-	}
-	 
-	else if (LettersSpaces.test(Translate_Answer) == false){
+	} else if (LettersSpaces.test(Translate_Answer) == false){
 	//This condition will see if the contents of the variable 'Translate_Answer' matches with the rules of the expression. This condition will only run if it returns 'false', meaning that the input doesn't meet the expression.
 	
 		alert("Please enter a valid answer with letters and suitable spaces only.");
@@ -632,9 +598,7 @@ function checkTranslateAnswer() {
 		
 		return false;
 		//Prevents the user from advancing to the next question. 
-	}
-	
-	else {
+	} else {
 		alert("Incorrect.");
 		//This will carry out if the user's input doesn't match with the list elements meaning that the input was incorrect.
 		//The prompt will display a message notfiying that the user's input was incorrect.
@@ -645,17 +609,14 @@ function checkTranslateAnswer() {
 	}
     
 	Total++;
-	
-    QuestionsAnswered++;  QuestionOrderIndex = questionOrder[QuestionsAnswered];
+    QuestionsAnswered++;  
+	QuestionOrderIndex = questionOrder[QuestionsAnswered];
 
     if (QuestionsAnswered < 10) {
 		renderQuestion();
-	}
-
-    else {
+	} else {
 	    renderResults();
 	}
-
 }
 
 window.onload = function() {

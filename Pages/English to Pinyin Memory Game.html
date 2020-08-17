@@ -26,45 +26,45 @@ var CharList = ['You', You, 'You (Polite)', YouP, 'Good', Good, 'I, me', Me, 'Ve
 var NumTilesSelected = [];
 var memory_tile_ids = [];
 var Tiles_Flipped = 0;
-Array.prototype.memory_tile_shuffle = function(){
+Array.prototype.memory_tile_shuffle = function() {
     var i = this.length, j, temp;
-    while(--i > 0){
+    while (--i > 0) {
         j = Math.floor(Math.random() * (i+1));
         temp = this[j];
         this[j] = this[i];
         this[i] = temp;
     }
 }
-function newBoard(){
+function newBoard() {
 	Tiles_Flipped = 0;
 	var Tiles_Generated  = '';
     CharList.memory_tile_shuffle();
-	for(var i = 0; i < CharList.length; i++){
-		Tiles_Generated  += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+CharList[i]+'\')"></div>';
+	for (var i = 0; i < CharList.length; i++) {
+		Tiles_Generated  += '<div id="tile_' + i + '" onclick="memoryFlipTile(this,\'' + CharList[i] + '\')"></div>';
 	}
-	document.getElementById('memory_board').innerHTML = Tiles_Generated ;
+	document.getElementById('memory_board').innerHTML = Tiles_Generated;
 }
-function memoryFlipTile(tile,value){
-	if(tile.innerHTML == "" && NumTilesSelected.length < 2){
+function memoryFlipTile(tile,value) {
+	if (tile.innerHTML == "" && NumTilesSelected.length < 2) {
 		tile.style.background = 'White';
 		tile.innerHTML = value;
-		if(NumTilesSelected.length == 0){
+		if (NumTilesSelected.length == 0) {
 			NumTilesSelected.push(value);
 			memory_tile_ids.push(tile.id);
-		} else if(NumTilesSelected.length == 1){
+		} else if (NumTilesSelected.length == 1) {
 			NumTilesSelected.push(value);
 			memory_tile_ids.push(tile.id);
-			if(NumTilesSelected[0] == 'You' && NumTilesSelected[1] == You || NumTilesSelected[0] == You && NumTilesSelected[1] == 'You' || NumTilesSelected[0] == 'You (Polite)' && NumTilesSelected[1] == YouP || NumTilesSelected[0] == YouP && NumTilesSelected[1] == 'You (Polite)' || NumTilesSelected[0] == 'Good' && NumTilesSelected[1] == Good || NumTilesSelected[0] == Good && NumTilesSelected[1] == 'Good' || NumTilesSelected[0] == 'I, me' && NumTilesSelected[1] == Me || NumTilesSelected[0] == Me && NumTilesSelected[1] == 'I, me' || NumTilesSelected[0] == 'Very' && NumTilesSelected[1] == Very || NumTilesSelected[0] == Very && NumTilesSelected[1] == 'Very' || NumTilesSelected[0] == 'Interrogative word' && NumTilesSelected[1] == Inter || NumTilesSelected[0] == Inter && NumTilesSelected[1] == 'Interrogative word'){
+			if (NumTilesSelected[0] == 'You' && NumTilesSelected[1] == You || NumTilesSelected[0] == You && NumTilesSelected[1] == 'You' || NumTilesSelected[0] == 'You (Polite)' && NumTilesSelected[1] == YouP || NumTilesSelected[0] == YouP && NumTilesSelected[1] == 'You (Polite)' || NumTilesSelected[0] == 'Good' && NumTilesSelected[1] == Good || NumTilesSelected[0] == Good && NumTilesSelected[1] == 'Good' || NumTilesSelected[0] == 'I, me' && NumTilesSelected[1] == Me || NumTilesSelected[0] == Me && NumTilesSelected[1] == 'I, me' || NumTilesSelected[0] == 'Very' && NumTilesSelected[1] == Very || NumTilesSelected[0] == Very && NumTilesSelected[1] == 'Very' || NumTilesSelected[0] == 'Interrogative word' && NumTilesSelected[1] == Inter || NumTilesSelected[0] == Inter && NumTilesSelected[1] == 'Interrogative word') {
 				Tiles_Flipped += 2;
 				NumTilesSelected = [];
             	memory_tile_ids = [];
-				if(Tiles_Flipped == CharList.length){
+				if (Tiles_Flipped == CharList.length) {
 					alert("Board cleared... generating new board");
 					document.getElementById('memory_board').innerHTML = "";
 					newBoard();
 				}
 			} else {
-				function flip_Tiles_Back(){
+				function flip_Tiles_Back() {
 				    var tile_1 = document.getElementById(memory_tile_ids[0]);
 				    var tile_2 = document.getElementById(memory_tile_ids[1]);
             	    tile_1.innerHTML = "";

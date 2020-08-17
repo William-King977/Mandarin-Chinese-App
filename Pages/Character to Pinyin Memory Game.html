@@ -27,45 +27,45 @@ var CharList = [You, ni, YouP, nin, Good, hao, me, wo, Very, hen, Inter, ma];
 var NumTilesSelected = [];
 var memory_tile_ids = [];
 var Tiles_Flipped = 0;
-Array.prototype.memory_tile_shuffle = function(){
+Array.prototype.memory_tile_shuffle = function() {
     var i = this.length, j, temp;
-    while(--i > 0){
+    while (--i > 0) {
         j = Math.floor(Math.random() * (i+1));
         temp = this[j];
         this[j] = this[i];
         this[i] = temp;
     }
 }
-function newBoard(){
+function newBoard() {
 	Tiles_Flipped = 0;
 	var Tiles_Generated  = '';
     CharList.memory_tile_shuffle();
-	for(var i = 0; i < CharList.length; i++){
-		Tiles_Generated  += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+ CharList[i] +'\')"></div>';
+	for (var i = 0; i < CharList.length; i++) {
+		Tiles_Generated  += '<div id="tile_' + i + '" onclick="memoryFlipTile(this,\'' + CharList[i] + '\')"></div>';
 	}
 	document.getElementById('memory_board').innerHTML = Tiles_Generated ;
 }
-function memoryFlipTile(tile,value){
-	if(tile.innerHTML == "" && NumTilesSelected.length < 2){
+function memoryFlipTile(tile, value) {
+	if (tile.innerHTML == "" && NumTilesSelected.length < 2) {
 		tile.style.background = 'White';
 		tile.innerHTML = value;
-		if(NumTilesSelected.length == 0){
+		if (NumTilesSelected.length == 0) {
 			NumTilesSelected.push(value);
 			memory_tile_ids.push(tile.id);
-		} else if(NumTilesSelected.length == 1){
+		} else if (NumTilesSelected.length == 1) {
 			NumTilesSelected.push(value);
 			memory_tile_ids.push(tile.id);
-			if(NumTilesSelected[0] == You && NumTilesSelected[1] == ni || NumTilesSelected[0] == ni && NumTilesSelected[1] == You || NumTilesSelected[0] == YouP && NumTilesSelected[1] == nin || NumTilesSelected[0] == nin && NumTilesSelected[1] == YouP || NumTilesSelected[0] == Good && NumTilesSelected[1] == hao || NumTilesSelected[0] == hao && NumTilesSelected[1] == Good || NumTilesSelected[0] == me && NumTilesSelected[1] == wo || NumTilesSelected[0] == wo && NumTilesSelected[1] == me || NumTilesSelected[0] == Very && NumTilesSelected[1] == hen || NumTilesSelected[0] == hen && NumTilesSelected[1] == Very || NumTilesSelected[0] == Inter && NumTilesSelected[1] == ma || NumTilesSelected[0] == ma && NumTilesSelected[1] == Inter){
+			if (NumTilesSelected[0] == You && NumTilesSelected[1] == ni || NumTilesSelected[0] == ni && NumTilesSelected[1] == You || NumTilesSelected[0] == YouP && NumTilesSelected[1] == nin || NumTilesSelected[0] == nin && NumTilesSelected[1] == YouP || NumTilesSelected[0] == Good && NumTilesSelected[1] == hao || NumTilesSelected[0] == hao && NumTilesSelected[1] == Good || NumTilesSelected[0] == me && NumTilesSelected[1] == wo || NumTilesSelected[0] == wo && NumTilesSelected[1] == me || NumTilesSelected[0] == Very && NumTilesSelected[1] == hen || NumTilesSelected[0] == hen && NumTilesSelected[1] == Very || NumTilesSelected[0] == Inter && NumTilesSelected[1] == ma || NumTilesSelected[0] == ma && NumTilesSelected[1] == Inter) {
 				Tiles_Flipped += 2;
 				NumTilesSelected = [];
             	memory_tile_ids = [];
-				if(Tiles_Flipped == CharList.length){
+				if (Tiles_Flipped == CharList.length) {
 					alert("Board cleared... generating new board");
 					document.getElementById('memory_board').innerHTML = "";
 					newBoard();
 				}
 			} else {
-				function flip_Tiles_Back(){
+				function flip_Tiles_Back() {
 				    var tile_1 = document.getElementById(memory_tile_ids[0]);
 				    var tile_2 = document.getElementById(memory_tile_ids[1]);
             	    tile_1.innerHTML = "";
