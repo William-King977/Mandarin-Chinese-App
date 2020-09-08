@@ -18,8 +18,10 @@ var hen = '\u5F88';
 var ma = '\u5417'; 
 
 // An array that will contain the tile values that are selected by the user.
-var charList = ['You', ni,'You (Polite)', nin, 'Good', hao, 'I, me', wo, 'Very', hen, 'Interrogative word', ma];
-var numTilesSelected = []; 
+var charList = [ni, nin, hao, wo, hen, ma];
+var wordList = ['You', 'You (Polite)', 'Good', 'I, me', 'Very', 'Interrogative word'];
+var gameTiles = charList.concat(wordList);
+var tilesSelected = []; 
 
 // An array that will contain memory tile IDs that the user selects.
 var memory_tile_ids = [];  
@@ -27,7 +29,7 @@ var memory_tile_ids = [];
 // This variable will contain the total number of tiles that are matched. This will be compared with the total number of tiles at the end of each match.
 var tilesFlipped = 0;
 
-// This code is the shuffle method used to randomise the values in ‘charList’. The code was found through research on the internet.
+// This code is the shuffle method used to randomise the values in ‘gameTiles’. The code was found through research on the internet.
 Array.prototype.memory_tile_shuffle = function() {
     var i = this.length, j, temp;
     while (--i > 0) {
@@ -42,12 +44,13 @@ function newBoard() {
 	tilesFlipped = 0;
 	var tiles_generated = '';
 	
-	// The shuffle method is applied to 'charList'. 
-    charList.memory_tile_shuffle(); 
+	// The shuffle method is applied to 'gameTiles'. 
+    gameTiles.memory_tile_shuffle(); 
 	
-	// 'charList' is searched and a tile is added in the variable 'tiles_generated' for every value in 'charList'.
-	for (var i = 0; i < charList.length; i++) {
-		tiles_generated += '<div id="tile_' + i +'" onclick="memoryFlipTile(this,\'' + charList[i] + '\')"></div>';
+	// 'gameTiles' is searched and a tile is added in the variable 'tiles_generated' for every value in 'gameTiles'.
+	for (var i = 0; i < gameTiles.length; i++) {
+		// When a tile is clicked on, run the memoryFlipTile method.
+		tiles_generated += '<div id="tile_' + i +'" onclick="memoryFlipTile(this,\'' + gameTiles[i] + '\')"></div>';
 	}   
 	
 	// At the end of the 'FOR' loop, the contents of 'tiles_generated' (the tiles) is equated to the memory board   
@@ -56,7 +59,7 @@ function newBoard() {
 
 function memoryFlipTile(tile, value) {
 	// The code will run if a tile is not currently selected, but clicked on and there are less than two tiles selected.
-	if (tile.innerHTML == "" && numTilesSelected.length < 2) {
+	if (tile.innerHTML == "" && tilesSelected.length < 2) {
 		
 		// The background of the tile will be white when selected.
 		tile.style.background = 'White';
@@ -64,31 +67,32 @@ function memoryFlipTile(tile, value) {
 		// When the tile is flipped, the tile will display the value.
 		tile.innerHTML = value;
 		
-		// The code will run if a tile is selected, but there is nothing in the 'numTilesSelected' arrays.
-		if (numTilesSelected.length == 0) {  
-			// The tile value will be added to the 'numTilesSelected' array and the tile ID will be added to the 'memory_tile_ids' array.
-			numTilesSelected.push(value);
+		// The code will run if a tile is selected, but there is nothing in the 'tilesSelected' arrays.
+		if (tilesSelected.length == 0) {  
+			// The tile value's index will be added to the 'tilesSelected' array and the tile ID will be added to the 'memory_tile_ids' array.
+			var indexSelected = getItemPosition(value);
+			tilesSelected.push(indexSelected);
 			memory_tile_ids.push(tile.id);
 		
-		// The code will run if there is already a value in 'numTilesSelected' array meaning that there will be two values after the next part of the code has run.
-		} else if (numTilesSelected.length == 1) {
-			// Adds the tile values and IDs into their respective arrays.
-			numTilesSelected.push(value);
+		// The code will run if there is already a value in 'tilesSelected' array meaning that there will be two values after the next part of the code has run.
+		} else if (tilesSelected.length == 1) {
+			// Adds the tile value's index and ID into their respective arrays.
+			var indexSelected = getItemPosition(value);
+			tilesSelected.push(indexSelected);
 			memory_tile_ids.push(tile.id);
 			
-			// A massive 'IF' statement which will compare all the possible value combinations for this specific memory game. 
-			// If one of the statements are true (meaning that the tiles match), then the code below will run. 
-			if (numTilesSelected[0] == 'You' && numTilesSelected[1] == ni || numTilesSelected[0] == ni && numTilesSelected[1] == 'You' || numTilesSelected[0] == 'You (Polite)' && numTilesSelected[1] == nin || numTilesSelected[0] == nin && numTilesSelected[1] == 'You (Polite)' || numTilesSelected[0] == 'Good' && numTilesSelected[1] == hao || numTilesSelected[0] == hao && numTilesSelected[1] == 'Good' || numTilesSelected[0] == 'I, me' && numTilesSelected[1] == wo || numTilesSelected[0] == wo && numTilesSelected[1] == 'I, me' || numTilesSelected[0] == 'Very' && numTilesSelected[1] == hen || numTilesSelected[0] == hen && numTilesSelected[1] == 'Very' || numTilesSelected[0] == 'Interrogative word' && numTilesSelected[1] == ma || numTilesSelected[0] == ma && numTilesSelected[1] == 'Interrogative word') {
+			// Check if the tile values' indexes match (from their respective arrays).
+			if (tilesSelected[0] == tilesSelected[1]) {
 				 
 				// If there is a match with the two tiles, then two will be added to the total number of tiles selected.
 				tilesFlipped += 2;
 				
 				// Both arrays are cleared. 
-				numTilesSelected = [];
+				tilesSelected = [];
             	memory_tile_ids = [];
 				 
 				// Check to see if the whole board is cleared.
-				if (tilesFlipped == charList.length) {
+				if (tilesFlipped == gameTiles.length) {
 				
 					// This will empty the memory board in order for a new one to be created.
 					alert("Board cleared... generating new board");
@@ -115,7 +119,7 @@ function memoryFlipTile(tile, value) {
             	    tile_2.innerHTML = "";
 					
 					// Both arrays are cleared.
-				    numTilesSelected = [];
+				    tilesSelected = [];
             	    memory_tile_ids = [];
 				}
 				// The time it takes for the cards to flip back over.
@@ -123,6 +127,15 @@ function memoryFlipTile(tile, value) {
 			}
 		}
 	}
+}
+
+// Gets the tile value's index in its respective array.
+function getItemPosition(tileValue) {
+	var index = charList.indexOf(tileValue);
+	if (index < 0) {
+		index = wordList.indexOf(tileValue);
+	}
+	return index;
 }
 </script>
 </head>
