@@ -9,119 +9,117 @@
 
 <script>
 
+// The characters have their unicode representations stored in variables in order for them to be easily recognise throughout the code. 
 var ni = '\u4F60';
 var nin = '\u60A8';
 var hao = '\u597D';
 var wo = '\u6211';
 var hen = '\u5F88';
-var ma = '\u5417';
-//The characters have their unicode representations stored in variables in order for them to be easily recognise throughout the code.  
-	
-var CharList = ['You', ni,'You (Polite)', nin, 'Good', hao, 'I, me', wo, 'Very', hen, 'Interrogative word', ma];
-var NumTilesSelected = [];
-//An array that will contain the tile values that are selected by the user  
+var ma = '\u5417'; 
 
-var memory_tile_ids = [];
-//An array that will contain memory tile IDs that the user selects  
+// An array that will contain the tile values that are selected by the user.
+var charList = ['You', ni,'You (Polite)', nin, 'Good', hao, 'I, me', wo, 'Very', hen, 'Interrogative word', ma];
+var numTilesSelected = []; 
 
-var Tiles_Flipped = 0;
-//This variable will contain the total number of tiles that are matched. This will be compared with the total number of tiles at the end of each match.
+// An array that will contain memory tile IDs that the user selects.
+var memory_tile_ids = [];  
 
+// This variable will contain the total number of tiles that are matched. This will be compared with the total number of tiles at the end of each match.
+var tilesFlipped = 0;
+
+// This code is the shuffle method used to randomise the values in ‘charList’. The code was found through research on the internet.
 Array.prototype.memory_tile_shuffle = function() {
     var i = this.length, j, temp;
     while (--i > 0) {
-        j = Math.floor(Math.random() * (i+1));
+        j = Math.floor(Math.random() * (i + 1));
         temp = this[j];
         this[j] = this[i];
         this[i] = temp;
     }
 }
-//This code is the shuffle method used to randomise the values in ‘CharList’. The code was found through research on the internet.
 
 function newBoard() {
-	Tiles_Flipped = 0;
-	//The number of tiles flipped is reset to zero when generating a new board.  
+	tilesFlipped = 0;
+	var tiles_generated = '';
 	
-	var Tiles_Generated = '';
-	//The variable 'Tiles_Generated' is set.
+	// The shuffle method is applied to 'charList'. 
+    charList.memory_tile_shuffle(); 
 	
-    CharList.memory_tile_shuffle();
-	//The shuffle method is applied to 'CharList'.  
+	// 'charList' is searched and a tile is added in the variable 'tiles_generated' for every value in 'charList'.
+	for (var i = 0; i < charList.length; i++) {
+		tiles_generated += '<div id="tile_' + i +'" onclick="memoryFlipTile(this,\'' + charList[i] + '\')"></div>';
+	}   
 	
-	for (var i = 0; i < CharList.length; i++) {
-		Tiles_Generated += '<div id="tile_' + i +'" onclick="memoryFlipTile(this,\'' + CharList[i] + '\')"></div>';
-	}
-	//'CharList' is searched and a tile is added in the variable 'Tiles_Generated' for every value in 'CharList'.   
-	
-	document.getElementById('memory_board').innerHTML = Tiles_Generated;
-	//At the end of the 'FOR' loop, the contents of 'Tiles_Generated' (the tiles) is equated to the memory board   
+	// At the end of the 'FOR' loop, the contents of 'tiles_generated' (the tiles) is equated to the memory board   
+	document.getElementById('memory_board').innerHTML = tiles_generated;
 }
 
 function memoryFlipTile(tile, value) {
-	if (tile.innerHTML == "" && NumTilesSelected.length < 2) {
-	//The code will run if a tile is not currently selected, but clicked on and there are less than two tiles selected.
-	
+	// The code will run if a tile is not currently selected, but clicked on and there are less than two tiles selected.
+	if (tile.innerHTML == "" && numTilesSelected.length < 2) {
+		
+		// The background of the tile will be white when selected.
 		tile.style.background = 'White';
-		//The background of the tile will be white when selected.
 		
+		// When the tile is flipped, the tile will display the value.
 		tile.innerHTML = value;
-		//When the tile is flipped, the tile will display the value.  
-		if (NumTilesSelected.length == 0) {
-		//The code will run if a tile is selected, but there is nothing in the 'NumTilesSelected' arrays.  
 		
-			NumTilesSelected.push(value);
+		// The code will run if a tile is selected, but there is nothing in the 'numTilesSelected' arrays.
+		if (numTilesSelected.length == 0) {  
+			// The tile value will be added to the 'numTilesSelected' array and the tile ID will be added to the 'memory_tile_ids' array.
+			numTilesSelected.push(value);
 			memory_tile_ids.push(tile.id);
-			//The tile value will be added to the 'NumTilesSelected' array and the tile ID will be added to the 'memory_tile_ids' array.
-			
-		} else if (NumTilesSelected.length == 1) {
-		  //The code will run if there is already a value in 'NumTilesSelected' array meaning that there will be two values after the next part of the code has run.
-		  
-			NumTilesSelected.push(value);
+		
+		// The code will run if there is already a value in 'numTilesSelected' array meaning that there will be two values after the next part of the code has run.
+		} else if (numTilesSelected.length == 1) {
+			// Adds the tile values and IDs into their respective arrays.
+			numTilesSelected.push(value);
 			memory_tile_ids.push(tile.id);
-			//Adds the tile values and IDs into their respective arrays.
 			
-			if (NumTilesSelected[0] == 'You' && NumTilesSelected[1] == ni || NumTilesSelected[0] == ni && NumTilesSelected[1] == 'You' || NumTilesSelected[0] == 'You (Polite)' && NumTilesSelected[1] == nin || NumTilesSelected[0] == nin && NumTilesSelected[1] == 'You (Polite)' || NumTilesSelected[0] == 'Good' && NumTilesSelected[1] == hao || NumTilesSelected[0] == hao && NumTilesSelected[1] == 'Good' || NumTilesSelected[0] == 'I, me' && NumTilesSelected[1] == wo || NumTilesSelected[0] == wo && NumTilesSelected[1] == 'I, me' || NumTilesSelected[0] == 'Very' && NumTilesSelected[1] == hen || NumTilesSelected[0] == hen && NumTilesSelected[1] == 'Very' || NumTilesSelected[0] == 'Interrogative word' && NumTilesSelected[1] == ma || NumTilesSelected[0] == ma && NumTilesSelected[1] == 'Interrogative word') {
-				//A massive 'IF' statement which will compare all the possible value combinations for this specific memory game. If one of the statements are true (meaning that the tiles match), then the code below will run. 
+			// A massive 'IF' statement which will compare all the possible value combinations for this specific memory game. 
+			// If one of the statements are true (meaning that the tiles match), then the code below will run. 
+			if (numTilesSelected[0] == 'You' && numTilesSelected[1] == ni || numTilesSelected[0] == ni && numTilesSelected[1] == 'You' || numTilesSelected[0] == 'You (Polite)' && numTilesSelected[1] == nin || numTilesSelected[0] == nin && numTilesSelected[1] == 'You (Polite)' || numTilesSelected[0] == 'Good' && numTilesSelected[1] == hao || numTilesSelected[0] == hao && numTilesSelected[1] == 'Good' || numTilesSelected[0] == 'I, me' && numTilesSelected[1] == wo || numTilesSelected[0] == wo && numTilesSelected[1] == 'I, me' || numTilesSelected[0] == 'Very' && numTilesSelected[1] == hen || numTilesSelected[0] == hen && numTilesSelected[1] == 'Very' || numTilesSelected[0] == 'Interrogative word' && numTilesSelected[1] == ma || numTilesSelected[0] == ma && numTilesSelected[1] == 'Interrogative word') {
 				 
-				Tiles_Flipped += 2;
-				//If there is a match with the two tiles, then two will be added to the total number of tiles selected.
+				// If there is a match with the two tiles, then two will be added to the total number of tiles selected.
+				tilesFlipped += 2;
 				
-				NumTilesSelected = [];
+				// Both arrays are cleared. 
+				numTilesSelected = [];
             	memory_tile_ids = [];
-				//Both arrays are cleared. 
 				 
-				if (Tiles_Flipped == CharList.length) {
-				// Check to see if the whole board is cleared
+				// Check to see if the whole board is cleared.
+				if (tilesFlipped == charList.length) {
 				
+					// This will empty the memory board in order for a new one to be created.
 					alert("Board cleared... generating new board");
-					document.getElementById('memory_board').innerHTML = "";              
-					//This will empty the memory board in order for a new one to be created. 
-					 
+					document.getElementById('memory_board').innerHTML = "";               
+					
+					// This calls the ‘newBoard’ function to create a new board.
 					newBoard();
-					//This calls the ‘newBoard’ function to create a new board.
 					
 				}
-			} else {
-			  //The code below will run if the tiles selected do not match.  
-				function flip_tiles_Back() {
-				// Flip the 2 tiles back over
 				
+			// The code below will run if the tiles selected do not match.
+			} else {
+				// Flip the 2 tiles back over
+				function flip_tiles_Back() {
+					
+					// The first tile ID in the array is stored in a variable.
 				    var tile_1 = document.getElementById(memory_tile_ids[0]);
-					//The first tile ID in the array is stored in a variable
 					
-				    var tile_2 = document.getElementById(memory_tile_ids[1]);
-					//The second tile ID in the array is stored in a variable   
+					// The second tile ID in the array is stored in a variable.
+				    var tile_2 = document.getElementById(memory_tile_ids[1]);  
 					
+					// Both variables are cleared in order for both tiles to be flipped back over. 
             	    tile_1.innerHTML = "";
             	    tile_2.innerHTML = "";
-				    //Both variables are cleared in order for both tiles to be flipped back over. 
 					
-				    NumTilesSelected = [];
+					// Both arrays are cleared.
+				    numTilesSelected = [];
             	    memory_tile_ids = [];
-					//Both arrays are cleared.
 				}
+				// The time it takes for the cards to flip back over.
 				setTimeout(flip_tiles_Back, 700);
-				// The time it takes for the cards to flip back over
 			}
 		}
 	}
@@ -129,10 +127,11 @@ function memoryFlipTile(tile, value) {
 </script>
 </head>
 <body>
+<!-- Just like the boxes in the sentence pages. The ‘div’ tags will act as a section of the HTML page and CSS will be used to create the memory board. -->
 <div id="memory_board"></div>
-<!--Just like the boxes in the sentence pages. The ‘div’ tags will act as a section of the HTML page and CSS will be used to create the memory board.-->
 
+<!-- The function ‘newBoard’ is called here. This will mean that the function will run when the page opens on 
+     the web browser otherwise the code in the functions will not run at all. -->
 <script>newBoard();</script>
-<!--The function ‘newBoard’ is called here. This will mean that the function will run when the page opens on the web browser otherwise the code in the functions will not run at all.-->
 </body>
 </html>

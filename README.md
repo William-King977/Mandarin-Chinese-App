@@ -10,5 +10,5 @@ This is a continuation from 'Prototype 3'. Adding new lessons will basically be 
 
 # Aims for Now
 - Refactor the code.
-- Save the user's progress based on their Test Assesssment performances (File Handling).
+- Save the user's progress based on their Test Assessment performances (File Handling).
 - Show questions that the user need more work on (i.e. the ones they're getting wrong).
