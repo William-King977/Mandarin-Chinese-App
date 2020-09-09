@@ -147,174 +147,54 @@ var userAnswer = [];
 var questionStatus = [];
 
 // This function will display all the questions, user's answers and an example correct answer from the test the user has done.
-function results() {
+function showResults() {
 	// The variable 'table' is equated to a created element called 'table'. This will have HTML properities meaning that a table can be created.
 	var table = document.createElement('table');
-
-	// Since there are 10 questions in each test, 11 rows will be inserted into the 'table' element and are equated to a variable.
-	// The first row will display the headers for each column.
-	var row1 = table.insertRow(0);
-	var row2 = table.insertRow(1);
-	var row3 = table.insertRow(2);
-	var row4 = table.insertRow(3);
-	var row5 = table.insertRow(4);
-	var row6 = table.insertRow(5);
-	var row7 = table.insertRow(6);
-	var row8 = table.insertRow(7);
-	var row9 = table.insertRow(8);
-	var row10 = table.insertRow(9);
-	var row11 = table.insertRow(10);
-
+	
 	// This will display a border around the whole table that will be created.
 	table.style.border = "solid";
-
-	// A cell is inserted into the first row and is equated to a variable.
-    var row1col1 = row1.insertCell(0);
-
-	// The word 'Question' will be added into the first cell on the first row. This column will display the question that the user recieves in the test.
-	row1col1.innerHTML = 'Question';
-
-	// Another cell is added into the first row and it will hold the word 'Your Answer'. This is the column that will hold the user's answer for each question.
-	var row1col2 = row1.insertCell(1);
-	row1col2.innerHTML = 'Your Answer';
-
-	// A third cell is added into the third row and it will hold the word 'Correct Answer'. This will hold the example correct answer for the question on the same row.
-    var row1col3 = row1.insertCell(2);
-	row1col3.innerHTML = 'Correct Answer';
-
-	// All the cells in the first row are given a border to highlight the individual cells. This will be done to all the other rows.
-	row1col1.style.border = "solid";
-	row1col2.style.border = "solid";
-	row1col3.style.border = "solid";
-
-	// The same action will be done as above, adding 3 cells for the second row and this will continue until the 11th row.
-	var row2col1 = row2.insertCell(0); row2col1.innerHTML = userQuestion[0][0];
-	var row2col2 = row2.insertCell(1); row2col2.innerHTML = userAnswer[0];
-	var row2col3 = row2.insertCell(2); row2col3.innerHTML = userQuestion[0][1];
-
-	row2col1.style.border = "solid";
-	row2col2.style.border = "solid";
-	row2col3.style.border = "solid";
-
-	// The cell for the second cell on the second row will be changed to green to indicate that the user's answer was correct.
-	// The hexadecimal value of the colour green is used. The colour changes will be done for all the cells in the second coloumn.
-	if (questionStatus[0] == "Correct") {
-		row2col2.style.border += "#008000";
-
-	// The cell for second cell on the second row will be changed to red to indicate that the user's answer was incorrect.
-	} else {
-		row2col2.style.border += "#FF0000";
-	}
-
-	var row3col1 = row3.insertCell(0); row3col1.innerHTML = userQuestion[1][0];
-	var row3col2 = row3.insertCell(1); row3col2.innerHTML = userAnswer[1];
-	var row3col3 = row3.insertCell(2); row3col3.innerHTML = userQuestion[1][1];
-	row3col1.style.border = "solid";
-	row3col2.style.border = "solid";
-	row3col3.style.border = "solid";
-	if (questionStatus[1] == "Correct") {
-		row3col2.style.border += "#008000";
-	} else {
-		row3col2.style.border += "#FF0000";
-	}
-
-
-	var row4col1 = row4.insertCell(0); row4col1.innerHTML = userQuestion[2][0];
-	var row4col2 = row4.insertCell(1); row4col2.innerHTML = userAnswer[2];
-	var row4col3 = row4.insertCell(2); row4col3.innerHTML = userQuestion[2][1];
-	row4col1.style.border = "solid";
-	row4col2.style.border = "solid";
-	row4col3.style.border = "solid";
-	if (questionStatus[2] == "Correct") {
-		row4col2.style.border += "#008000";
-	} else {
-		row4col2.style.border += "#FF0000";
-	}
-
-	var row5col1 = row5.insertCell(0); row5col1.innerHTML = userQuestion[3][0];
-	var row5col2 = row5.insertCell(1); row5col2.innerHTML = userAnswer[3];
-	var row5col3 = row5.insertCell(2); row5col3.innerHTML = userQuestion[3][1];
-	row5col1.style.border = "solid";
-	row5col2.style.border = "solid";
-	row5col3.style.border = "solid";
-	if (questionStatus[3] == "Correct") {
-		row5col2.style.border += "#008000";
-	} else {
-		row5col2.style.border += "#FF0000";
-	}
-
-	var row6col1 = row6.insertCell(0); row6col1.innerHTML = userQuestion[4][0];
-	var row6col2 = row6.insertCell(1); row6col2.innerHTML = userAnswer[4];
-	var row6col3 = row6.insertCell(2); row6col3.innerHTML = userQuestion[4][1];
-	row6col1.style.border = "solid";
-	row6col2.style.border = "solid";
-	row6col3.style.border = "solid";
-	if (questionStatus[4] == "Correct") {
-		row6col2.style.border += "#008000";
-	} else {
-		row6col2.style.border += "#FF0000";
-	}
-
-
-	var row7col1 = row7.insertCell(0); row7col1.innerHTML = userQuestion[5][0];
-	var row7col2 = row7.insertCell(1); row7col2.innerHTML = userAnswer[5];
-	var row7col3 = row7.insertCell(2); row7col3.innerHTML = userQuestion[5][1];
-	row7col1.style.border = "solid";
-	row7col2.style.border = "solid";
-	row7col3.style.border = "solid";
-	if (questionStatus[5] == "Correct") {
-		row7col2.style.border += "#008000";
-	} else {
-		row7col2.style.border += "#FF0000";
-	}
-
-	var row8col1 = row8.insertCell(0); row8col1.innerHTML = userQuestion[6][0];
-	var row8col2 = row8.insertCell(1); row8col2.innerHTML = userAnswer[6];
-	var row8col3 = row8.insertCell(2); row8col3.innerHTML = userQuestion[6][1];
-	row8col1.style.border = "solid";
-	row8col2.style.border = "solid";
-	row8col3.style.border = "solid";
-	if (questionStatus[6] == "Correct") {
-		row8col2.style.border += "#008000";
-	} else {
-		row8col2.style.border += "#FF0000";
-	}
-
-
-	var row9col1 = row9.insertCell(0); row9col1.innerHTML = userQuestion[7][0];
-	var row9col2 = row9.insertCell(1); row9col2.innerHTML = userAnswer[7];
-	var row9col3 = row9.insertCell(2); row9col3.innerHTML = userQuestion[7][1];
-	row9col1.style.border = "solid";
-	row9col2.style.border = "solid";
-	row9col3.style.border = "solid";
-	if (questionStatus[7] == "Correct") {
-		row9col2.style.border += "#008000";
-	} else {
-		row9col2.style.border += "#FF0000";
-	}
-
-	var row10col1 = row10.insertCell(0); row10col1.innerHTML = userQuestion[8][0];
-	var row10col2 = row10.insertCell(1); row10col2.innerHTML = userAnswer[8];
-	var row10col3 = row10.insertCell(2); row10col3.innerHTML = userQuestion[8][1];
-	row10col1.style.border = "solid";
-	row10col2.style.border = "solid";
-	row10col3.style.border = "solid";
-	if (questionStatus[8] == "Correct") {
-		row10col2.style.border += "#008000";
-	} else {
-		row10col2.style.border += "#FF0000";
-	}
-
-	var row11col1 = row11.insertCell(0); row11col1.innerHTML = userQuestion[9][0];
-	var row11col2 = row11.insertCell(1); row11col2.innerHTML = userAnswer[9];
-	var row11col3 = row11.insertCell(2); row11col3.innerHTML = userQuestion[9][1];
-	row11col1.style.border = "solid";
-	row11col2.style.border = "solid";
-	row11col3.style.border = "solid";
-	if (questionStatus[9] == "Correct") {
-		row11col2.style.border += "#008000";
-	} else {
-		row11col2.style.border += "#FF0000";
+	
+	// Add a row for each question.
+	for (var i = 0; i < (10 + 1); i++) {
+		var row = table.insertRow(i);
+		
+		// Insert the columns for the row.
+		var colQuestion = row.insertCell(0);
+		var colUserAnswer = row.insertCell(1);
+		var colCorrectAnswer = row.insertCell(2);
+		
+		// Ajust the cell boarders.
+		colQuestion.style.border = "solid";
+		colUserAnswer.style.border = "solid";
+		colCorrectAnswer.style.border = "solid";
+		
+		// If it's the top row (headers).
+		if (i == 0) {
+			// Set the headers in the cells.
+			colQuestion.innerHTML = '<b> Question </b>';
+			colUserAnswer.innerHTML = '<b> Your Answer </b>';
+			colCorrectAnswer.innerHTML = '<b> Correct Answer </b>';
+		// Otherwise, insert the questions, user input and answers.
+		} else {
+			colQuestion.innerHTML = userQuestion[i - 1][0];
+			colUserAnswer.innerHTML = userAnswer[i - 1];
+			
+			// If it's a translate question, then only show one correct answer.
+			if (userQuestion[i - 1][0].indexOf("Translate:") >= 0) {
+				colCorrectAnswer.innerHTML = userQuestion[i - 1][1][0];
+			} else {
+				colCorrectAnswer.innerHTML = userQuestion[i - 1][1];
+			}
+			
+			// Colour the cell based on the user's answer.
+			// Colour it green if it was correct.
+			if (questionStatus[i - 1] == "Correct") {
+				colUserAnswer.style.border += "#008000";
+			// Otherwise, colour it red (for incorrect).
+			} else {
+				colUserAnswer.style.border += "#FF0000";
+			}
+		}
 	}
 
 	// The table will be inserted into the test 'div' which will mean that the test 'div' will be equated to a variable.
@@ -323,18 +203,15 @@ function results() {
 	// The user's score is still shown when the user accesses their results.
 	test.innerHTML = "<h2>You got " + correct + " of " + 10 + " questions correct</h2>";
 
-	// This text will be inputted to show what the colours on the table indicate. To make it clear, the word 'GREEN'
-	// is highlighted in the hexadecimal value of the colour green while the word 'RED' is highlighted in the
-	// hexadecimal value of the colour red. The '<span>' tags allow the elements to have their colours changed
-	// (or any other style methods) while remaining on the same line when using '.innerHTML'.
+	// Show text to help the user understand what's shown/highlighted on the table.
 	test.innerHTML += "<h5>The answers you entered that are highlighted <span style ='color:#008000'> GREEN </span> are CORRECT. " +
 					  "The answers highlighted in <span style ='color:#FF0000'> RED </span> are INCORRECT.</h5>"
-
-	test.appendChild(table);
+	
 	// The table created will be appended (added) into the test 'div'. This will display the table.
-
-	test.innerHTML += '<br><button onclick="location.reload()">Re-Test</a>';
+	test.appendChild(table);
+	
 	// The 'Re-Test' button is shown on the results page. '<br>' will space the button from the table.
+	test.innerHTML += '<br><button onclick="location.reload()">Re-Test</a>';
 }
 
 // The function 'renderResults' displays the test results to the user, showing them how they did.
@@ -348,7 +225,7 @@ function renderResults() {
 	// This displays a button that will lead to the 'results' function. This will lead to a function that will display the user's test results in a table.
 	// When the button is shown to the user, it will have the text 'View Results'.
   	getItem("test_status").innerHTML = "Test Completed";
-	test.innerHTML += '<button onclick="results()">View Results</a>';
+	test.innerHTML += '<button onclick="showResults()">View Results</a>';
 
 	// A button displayed as 'Re-test' will be inputted into the 'test' div. Clicking the button will result in the page in loading again.
   	// 'location.reload()' will reload the current page which is the test page.
@@ -408,7 +285,7 @@ function renderQuestion() {
 
 	// This applies if the question has the text 'Translate:'.
 	} else if (question.indexOf("Translate:") >= 0) {
-		test.innerHTML = "<h3>"+question+"</h3>";
+		test.innerHTML = "<h3>" + question + "</h3>";
 
 		// This displays a textbox that allows the user to store the value the user types in. It has the ID 'Translate'.
 		test.innerHTML += "<input type='text' id='Translate'><br><br>";
@@ -532,18 +409,7 @@ function checkSelectAnswer() {
 	// will get the next value of 'questionOrder' which  will be used to locate and display the next question in the 'questions' array.
 	questionsAnswered++;
 	questionOrderIndex = questionOrder[questionsAnswered];
-
-
-	// This checks if the value in 'questionsAnswered' is less than 10. This applies if less than
-	// 10 questions have been asked as this updates after a question has been answered.
-	if (questionsAnswered < 10) {
-		// 'renderQuestion' function will display the next question.
-		renderQuestion();
-	// This applies if 10 questions have been answered.
-	} else {
-		// 'renderResults' function will display the results of the test.
-		renderResults();
-	}
+	progressNextQuestion();
 }
 
 // This function runs through code that checks if the user's answer for the translation answers are correct or not.
@@ -606,11 +472,18 @@ function checkTranslateAnswer() {
 	total++;
     questionsAnswered++;
 	questionOrderIndex = questionOrder[questionsAnswered];
+	progressNextQuestion();
+}
 
+// Determines the progress based on the number of questions answered.
+function progressNextQuestion() {
+	// Show the next question if all questions haven't been answered.
 	if (questionsAnswered < 10) {
 		renderQuestion();
+		
+	// Show the results when all questions have been answered.
 	} else {
-	    renderResults();
+		renderResults();
 	}
 }
 
