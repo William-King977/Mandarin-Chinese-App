@@ -60,38 +60,37 @@ var correct = 0;
 // This is a 2-D array because it's an array that will hold other arrays that
 // will have the question and possible answers. The questions require the user to translate sentences.
 var questionSet1 = [
-    [ "Translate: \u4F60\u597D ", ["hello", "hi"]],
-    [ "Translate: \u4F60\u597D\u5417?", ["how are you?", "how are you"]],
-    [ "Translate: \u6211\u5F88\u597D", ["i'm good", "i'm fine", "i am good", "i am fine"]],
-
+    ["Translate: \u4F60\u597D ", ["hello", "hi"]],
+    ["Translate: \u4F60\u597D\u5417?", ["how are you?", "how are you"]],
+    ["Translate: \u6211\u5F88\u597D", ["i'm good", "i'm fine", "i am good", "i am fine"]]
 ];
 
 // 'questionSet2' stores the second type of questions that the user can receive. This is also a 2-D array
 // with questions that require the user to translate single characters.
 var questionSet2 = [
-    [ "Translate: \u4F60", ["you"]],
-    [ "Translate: \u60A8", ["you (polite version)", "you"]],
-    [ "Translate: \u597D", ["good, fine", "good", "fine"]],
-	[ "Translate: \u6211", ["i, me", "i", "me"]],
-	[ "Translate: \u5F88", ["very"]],
-	[ "Translate: \u5417", ["interrogative word (used at the end of a statement to form a question)", "interrogative word"]],
+    ["Translate: \u4F60", ["you"]],
+    ["Translate: \u60A8", ["you (polite version)", "you"]],
+    ["Translate: \u597D", ["good, fine", "good", "fine"]],
+	["Translate: \u6211", ["i, me", "i", "me"]],
+	["Translate: \u5F88", ["very"]],
+	["Translate: \u5417", ["interrogative word (used at the end of a statement to form a question)", "interrogative word"]]
 ];
 
 // 'questionSet3' stores the third type of questions that the user can receive. This is also a 2-D array with questions that require the user to select
 // a character or word matching with the word or charcter that is displayed. The last element of each question array holds the letter to the answer.
 var questionSet3 = [
-	[ "Select the word matching: \u4F60", "You", "You (Polite Version)", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)", "Good, fine", "B" ],
-    [ "Select the word matching: \u60A8", "You (Polite Version)", "I, me", "Interrogative word (used at the end of a statement to form a question)", "You", "You (Polite Version)", "Good, fine", "Very", "D" ],
-    [ "Select the word matching: \u597D", "Good, fine", "You (Polite Version)", "Very", "Good, fine", "I, me", "Interrogative word (used at the end of a statement to form a question)", "You", "C" ],
-	[ "Select the word matching:\u6211", "I, me", "Very", "You", "Good, fine", "Interrogative word (used at the end of a statement to form a question)", "I, me", "You (Polite Version)", "E" ],
-	[ "Select the word matching: \u5F88", "Very", "Very", "Good, fine", "Interrogative word (used at the end of a statement to form a question)", "You", "I, me", "You (Polite Version)", "A" ],
-	[ "Select the word matching: \u5417", "Interrogative word (used at the end of a statement to form a question)", "You (Polite Version)", "Good, fine", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)", "F" ],
-    [ "Select the character matching: You", ni, wo, ni, nin, hao, ma, hen, "B" ],
-	[ "Select the character matching: You (Polite Version)", nin, nin, hen, wo, ma, ni, hao, "A" ],
-	[ "Select the character matching: Good, fine", hao, ma, hao, nin, ni, hen, wo, "B" ],
-	[ "Select the character matching: I, me", wo, hen, nin, ni, hao, ma, wo, "F" ],
-	[ "Select the character matching: Very", hen, hao, wo, ma, hen, ni, nin, "D" ],
-	[ "Select the character matching: Interrogative word (used at the end of a statement to form a question)", ma, ni, hao, ma, hen, wo, nin, "C" ],
+	["Select the word matching: \u4F60", ["You (Polite Version)", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)", "Good, fine"], "You"],
+	["Select the word matching: \u60A8", ["I, me", "Interrogative word (used at the end of a statement to form a question)", "You", "You (Polite Version)", "Good, fine", "Very"], "You (Polite Version)"],
+    ["Select the word matching: \u597D", ["You (Polite Version)", "Very", "Good, fine", "I, me", "Interrogative word (used at the end of a statement to form a question)", "You"], "Good, fine"],
+	["Select the word matching:\u6211", ["Very", "You", "Good, fine", "Interrogative word (used at the end of a statement to form a question)", "I, me", "You (Polite Version)"], "I, me"],
+	["Select the word matching: \u5F88", ["Very", "Good, fine", "Interrogative word (used at the end of a statement to form a question)", "You", "I, me", "You (Polite Version)"], "Very"],
+	["Select the word matching: \u5417", ["You (Polite Version)", "Good, fine", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)"], "Interrogative word (used at the end of a statement to form a question)"],
+    ["Select the character matching: You", [wo, ni, nin, hao, ma, hen], ni],
+	["Select the character matching: You (Polite Version)", [nin, hen, wo, ma, ni, hao], nin],
+	["Select the character matching: Good, fine", [ma, hao, nin, ni, hen, wo], hao],
+	["Select the character matching: I, me", [hen, nin, ni, hao, ma, wo], wo],
+	["Select the character matching: Very", [hao, wo, ma, hen, ni, nin], hen],
+	["Select the character matching: Interrogative word (used at the end of a statement to form a question)", [ni, hao, ma, hen, wo, nin], ma]
 ];
 
 // This is a blank array that will contain the questions that the user will receive for the test.
@@ -183,7 +182,7 @@ function showResults() {
 			if (userQuestion[i - 1][0].indexOf("Translate:") >= 0) {
 				colCorrectAnswer.innerHTML = userQuestion[i - 1][1][0];
 			} else {
-				colCorrectAnswer.innerHTML = userQuestion[i - 1][1];
+				colCorrectAnswer.innerHTML = userQuestion[i - 1][2];
 			}
 			
 			// Colour the cell based on the user's answer.
@@ -257,31 +256,18 @@ function renderQuestion() {
 
 	// This checks if specific words are in the question. For this case it's 'Select the' which will mean that the question will require a selection for the answer.
 	if (question.indexOf("Select the") >= 0) {
-		// Each of the selectable options are stored in variables
-		var chA = questions[questionOrderIndex][2];
-	    var chB = questions[questionOrderIndex][3];
-	    var chC = questions[questionOrderIndex][4];
-		var chD = questions[questionOrderIndex][5];
-		var chE = questions[questionOrderIndex][6];
-		var chF = questions[questionOrderIndex][7];
-
+		
 		//The question is displayed.
 	    test.innerHTML = "<h3>" + question + "</h3>";
-
-		// Each of the radio buttons are added by using 'test.innerHTML +=' which will add HTML elements into the 'test' div.
-		// By using '+=', this will add to the current contents rather than replacing any contents that were added in previously.
-	    test.innerHTML += "<label><input type='radio' name='choices' value='A'> " + chA + "</label><br>";
-
-		// Each of the 'ChA' to 'ChF' variables are assigned to radio buttons which all have the name 'choices' and have
-		// values set to 'A' to 'F'. The 'ChA' to 'ChF' values are shown next to the radio buttons.
-	    test.innerHTML += "<label><input type='radio' name='choices' value='B'> " + chB + "</label><br>";
-		test.innerHTML += "<label><input type='radio' name='choices' value='C'> " + chC + "</label><br>";
-		test.innerHTML += "<label><input type='radio' name='choices' value='D'> " + chD + "</label><br>";
-		test.innerHTML += "<label><input type='radio' name='choices' value='E'> " + chE + "</label><br>";
-	    test.innerHTML += "<label><input type='radio' name='choices' value='F'> " + chF + "</label><br><br>";
+		
+		// Adds each answer options (for the question) to the page.
+		for (var i = 0; i < questions[questionOrderIndex][1].length; i++) {
+			var radioBox = questions[questionOrderIndex][1][i];
+			test.innerHTML += "<label><input type='radio' name='choices' value='" + radioBox + "'> " + radioBox + "</label><br>";
+		}
 
 		// This displays the submit button and when it's clicked on, the 'checkSelectAnswer()' function will run.
-	    test.innerHTML += "<button onclick='checkSelectAnswer()'>Submit Answer</button>";
+	    test.innerHTML += "<br><button onclick='checkSelectAnswer()'>Submit Answer</button>";
 
 	// This applies if the question has the text 'Translate:'.
 	} else if (question.indexOf("Translate:") >= 0) {
@@ -300,77 +286,48 @@ function renderQuestion() {
 function checkSelectAnswer() {
 	// All of the radio button choices are stored in an array and is equated to the variable 'choices'.
 	// It's stored in an array because all of the radio button are named 'choices'.
-	var choices = document.getElementsByName("choices");
+	var choice = document.getElementsByName("choices");
 
-	// This variable is set to 'false' in order to check if the user has selected an answer or not after clicking the 'Submit' button.
 	var answerSelected = false;
 
 	// Checks if the user has selected an answer (radio button).
 	// Their answer will be stored if they have.
-	for (var i = 0; i < choices.length; i++) {
-        if (choices[i].checked) {
+	for (var i = 0; i < choice.length; i++) {
+        if (choice[i].checked) {
 			// Get the user's selected answer.
-			choice_selected = choices[i].value;
+			choice_selected = choice[i].value;
+			// Store the user's selected answer (the character/word is stored, not the letter).
+			userAnswer.push(choice_selected);
+			// The question the user is currently on is added into the 'userQuestion' array.
+			userQuestion.push(questions[questionOrderIndex]);
             answerSelected = true;
+			break;
         }
     }
 
-	// 'answerSelected' will remain 'false' if the user hasn't selected a radio button.
+	// If there's no input.
 	if (!answerSelected) {
-		// A message prompt will display the message written to let the user know that they haven't selected an answer.
         alert("Please select an answer.");
-
-		// Returning 'false' will prevent the user progressing to the next question. This will continue until the user has clicked the 'Sumbit Button' with a selected answer.
+		// User stays on the same question.
 		return false;
 	}
 
-	// This 'IF' statement compares the last element in the current question in the 'questions' list to check
-	// if the answer is correct or not. This will apply if the answer submitted is correct.
-	if (choice_selected == questions[questionOrderIndex][8]) {
-		// The 'correct' array will increment by 1 to the current value of 'correct'
+	// If the user's answer is correct.
+	if (choice_selected == questions[questionOrderIndex][2]) {
 		correct++;
-
-		// A prompt message will display to let the user know that their answer was correct.
 		alert("Correct.");
-
-		// The question the user is currently on is added into the 'userQuestion' array.
-		userQuestion.push(questions[questionOrderIndex]);
-
 		// Since the user has got the question correct, the word 'Correct' will be added into the 'questionStatus' array.
 		// This is needed to compare if the user has got a question correct or not when displaying the table.
 		questionStatus.push("Correct")
 
-	// The 'else' statement will run if the answer submitted doesn't match with the correct answer.
+	// If it was incorrect.
 	} else {
-		// A message will display to let the user know that their answer was incorrect.
 		alert("Incorrect.");
 		userQuestion.push(questions[questionOrderIndex]);
 
 		// Since the user got the question incorrect, the word 'Incorrect' will be added into the 'questionStatus' array.
 		// This is needed in order to display an element on the tables appropriately.
 		questionStatus.push("Incorrect");
-	}
-	
-	// Store the user's selected answer (the character/word is stored, not the letter).
-	switch (choice_selected) {
-	    case "A":
-		    userAnswer.push(questions[questionOrderIndex][2]);
-			break;
-		case "B":
-			userAnswer.push(questions[questionOrderIndex][3]);
-			break;
-		case "C":
-			userAnswer.push(questions[questionOrderIndex][4]);
-			break;
-		case "D":
-		    userAnswer.push(questions[questionOrderIndex][5]);
-			break;
-		case "E":
-			userAnswer.push(questions[questionOrderIndex][6]);
-			break;
-		case "F":
-			userAnswer.push(questions[questionOrderIndex][7]);
-			break;
 	}
 
 	// The 'total' variable will increment by 1. The 'total' variable will still increment by 1 if the user answers a translation question.
@@ -386,54 +343,39 @@ function checkSelectAnswer() {
 
 // This function runs through code that checks if the user's answer for the translation answers are correct or not.
 function checkTranslateAnswer() {
-	// 'Letters&Spaces' variable holds the expression that allows spaces, apostrophes, lowercase and uppercase letters.
+	// A regex allowing spaces, apostrophes, lowercase and uppercase letters.
 	var lettersSpaces = /^[a-zA-Z-' ]+$/;
 
-	// 'spacesOrNoInput' variable holds the expression that allows spaces or no inputs.
+	// A regex that allows spaces or no inputs.
 	var spacesOrNoInput = /^ *$/;
 
 	// The answer the user typed in is retrieved by ID and it's all set to lowercase.
 	var translate_answer = (document.getElementById("Translate").value).toLowerCase();
 
-	// Throughout the next following 'IF' statements, the answer the user inputted will be compared with the
-	// rest of the items in the list of the question. This is because each word/character has a different number of possible translations
-	// to each other.
+	// If the answer is correct.
 	if (questions[questionOrderIndex][1].includes(translate_answer)) {
 		correct++;
 		alert("Correct.");
-
-		// The user's current question on the test will be added into the 'userQuestion' array.
 		userQuestion.push(questions[questionOrderIndex]);
-
-		// The user's inputted answer will be added into the 'userAnswer' array.
 		userAnswer.push(translate_answer);
 		questionStatus.push("Correct");
 		
-	// Gets the length of the answer (translate_answer) and checks if it's greater than 70.
+	// If the input is over the character limit.
 	} else if (translate_answer.length > 70) {
-	    // The prompt will display a message to the user notifying them that they need to enter an answer that is less than 70 characters.
 		alert("Please enter a suitable length answer that is less than 70 characters.")
-
-		// 'false' prevents the user from advancing to the next question.
 		return false;
 
-	// This will occur if the user submits an answer, but it doesn't have any input or if it has spaces only.
+	// If there is no input.
 	} else if (spacesOrNoInput.test(translate_answer)){
-	    // The prompt will display a message and 'false' will return meaning that the user will be stuck on the page until a valid input is submitted.
 		alert("Please enter an answer.")
 		return false;
 
-	// This condition will see if the contents of the variable 'translate_answer' matches with the rules of the expression.
-	// This condition will only run if it returns 'false', meaning that the input doesn't meet the expression.
+	// If non-alphabetic characters were entered.
 	} else if (!lettersSpaces.test(translate_answer)){
-	    //A suitable message will display notifying the user that their answer doesn't contain letters and spaces.
 		alert("Please enter a valid answer with letters and suitable spaces only.");
-
-		//Prevents the user from advancing to the next question.
 		return false;
 
-	// This will carry out if the user's input doesn't match with the list elements meaning that the input was incorrect.
-	// The prompt will display a message notfiying that the user's input was incorrect.
+	// If it's incorrect.
 	} else {
 		alert("Incorrect.");
 		userQuestion.push(questions[questionOrderIndex]);
