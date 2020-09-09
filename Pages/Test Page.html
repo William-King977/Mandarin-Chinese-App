@@ -26,7 +26,7 @@ function randOrd() {
 	return (Math.round(Math.random())-0.5);
 }
 
-// The function 'ADD FUNCTION NAME' will be used to retrieve certain HTML items by ID. The parameter 'x' represents the name of the HTML value to be retrieved by ID.
+// The function 'getItem' will be used to retrieve certain HTML items by ID. The parameter 'x' represents the name of the HTML value to be retrieved by ID.
 // For example: 'var test = getItem("test")' will equate the 'test' div from the HTML to the variable 'test'. This will allow the div to be modified by using JavaScript code.
 // Later on in the code, items will be added into the 'test' div with JavaScript.
 function getItem(x) {
@@ -55,7 +55,6 @@ var questionOrderIndex = 0;
 // 'total' will represent the total number of questions that have been asked.
 var total = 0;
 var correct = 0;
-
 
 // 'questionSet1' stores the first type of questions that the user can receive in the test.
 // This is a 2-D array because it's an array that will hold other arrays that
@@ -97,6 +96,7 @@ var questionSet3 = [
 
 // This is a blank array that will contain the questions that the user will receive for the test.
 var questions = [];
+const NUM_OF_QUESTIONS = 10;
 
 // All the question sets are randomised in order to prevent the user from recieving exactly the same questions on each test.
 // 'randOrd' is a function that is used as the shuffle method for array items. The 'randOrd' function returns a number
@@ -107,7 +107,7 @@ questionSet3.sort(randOrd);
 
 // This 'FOR' loop will add the questions from the question lists into the 'questions' array until there are 10 items (questions) in the array.
 // 'i' will represent the question number for each list. The maximum value that 'i' will be is 2 because there are only 3 questions minimum from 'questionSet1'.
-for (var i = 0; questions.length < 10; i++) {
+for (var i = 0; questions.length < NUM_OF_QUESTIONS; i++) {
 
 	// This will only apply if there are 9 questions in the 'questions' array.
 	if (questions.length == 9) {
@@ -127,7 +127,7 @@ for (var i = 0; questions.length < 10; i++) {
 var questionOrder = [];
 
 function setQuestionOrder() {
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < NUM_OF_QUESTIONS; i++) {
       questionOrder.push(i);
   }
 
@@ -155,7 +155,7 @@ function showResults() {
 	table.style.border = "solid";
 	
 	// Add a row for each question.
-	for (var i = 0; i < (10 + 1); i++) {
+	for (var i = 0; i < (NUM_OF_QUESTIONS + 1); i++) {
 		var row = table.insertRow(i);
 		
 		// Insert the columns for the row.
@@ -201,7 +201,7 @@ function showResults() {
 	var test = document.getElementById('test');
 
 	// The user's score is still shown when the user accesses their results.
-	test.innerHTML = "<h2>You got " + correct + " of " + 10 + " questions correct</h2>";
+	test.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS + " questions correct</h2>";
 
 	// Show text to help the user understand what's shown/highlighted on the table.
 	test.innerHTML += "<h5>The answers you entered that are highlighted <span style ='color:#008000'> GREEN </span> are CORRECT. " +
@@ -220,7 +220,7 @@ function renderResults() {
   	var test = getItem("test");
 
 	// The 'test' div is equated to the user's test results and it replaces any current 'test' div contents.
-  	test.innerHTML = "<h2>You got "+correct+" of "+10+" questions correct</h2>";
+  	test.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
 
 	// This displays a button that will lead to the 'results' function. This will lead to a function that will display the user's test results in a table.
 	// When the button is shown to the user, it will have the text 'View Results'.
@@ -247,7 +247,7 @@ function renderQuestion() {
 	// 'questionsAnswered' will start off as '0' meaning an extra value needs to be added.
 	//A question number can't start off as 0.
 	var test = getItem("test");
-	getItem("test_status").innerHTML = "Question " + (questionsAnswered + 1) + " of " + 10;
+	getItem("test_status").innerHTML = "Question " + (questionsAnswered + 1) + " of " + NUM_OF_QUESTIONS;
 
 	// This code will run only if the user has answered at least one question. The percentage of questions the user has currently got correct in the test
 	// will be added into the 'test_status' header and displayed under the current contents of the header.
@@ -266,7 +266,7 @@ function renderQuestion() {
 		var chF = questions[questionOrderIndex][7];
 
 		//The question is displayed.
-	    test.innerHTML = "<h3>"+question+"</h3>";
+	    test.innerHTML = "<h3>" + question + "</h3>";
 
 		// Each of the radio buttons are added by using 'test.innerHTML +=' which will add HTML elements into the 'test' div.
 		// By using '+=', this will add to the current contents rather than replacing any contents that were added in previously.
@@ -302,21 +302,15 @@ function checkSelectAnswer() {
 	// It's stored in an array because all of the radio button are named 'choices'.
 	var choices = document.getElementsByName("choices");
 
-	// The 'FOR' loop searches in the 'choices' variable for the radio button that the user selected.
-	for (var i = 0; i < choices.length; i++) {
-		if (choices[i].checked) {
-			// The radio button that the user selected will be stored in the 'Choice_Selected' variable.
-			Choice_Selected = choices[i].value;
-		}
-	}
-
 	// This variable is set to 'false' in order to check if the user has selected an answer or not after clicking the 'Submit' button.
 	var answerSelected = false;
 
-	// This 'FOR' loop goes through the same 'choices' variable again to check if the user has selected a radio button.
-	// If the user has selected a radio button then 'answerSelected' will be set to 'true'.
+	// Checks if the user has selected an answer (radio button).
+	// Their answer will be stored if they have.
 	for (var i = 0; i < choices.length; i++) {
         if (choices[i].checked) {
+			// Get the user's selected answer.
+			choice_selected = choices[i].value;
             answerSelected = true;
         }
     }
@@ -332,7 +326,7 @@ function checkSelectAnswer() {
 
 	// This 'IF' statement compares the last element in the current question in the 'questions' list to check
 	// if the answer is correct or not. This will apply if the answer submitted is correct.
-	if (Choice_Selected == questions[questionOrderIndex][8]) {
+	if (choice_selected == questions[questionOrderIndex][8]) {
 		// The 'correct' array will increment by 1 to the current value of 'correct'
 		correct++;
 
@@ -346,29 +340,6 @@ function checkSelectAnswer() {
 		// This is needed to compare if the user has got a question correct or not when displaying the table.
 		questionStatus.push("Correct")
 
-		// Each of the letters are equated for a Switch, Case statement in order to find out the user's selected answer
-		// and the appropriate Chinese character or English word will be found.
-		// This will represent the user's selected answer rather than one of the letters.
-		switch (Choice_Selected) {
-		    case "A":
-			    userAnswer.push(questions[questionOrderIndex][2]);
-				break;
-			case "B":
-				userAnswer.push(questions[questionOrderIndex][3]);
-				break;
-			case "C":
-				userAnswer.push(questions[questionOrderIndex][4]);
-				break;
-			case "D":
-			    userAnswer.push(questions[questionOrderIndex][5]);
-				break;
-			case "E":
-				userAnswer.push(questions[questionOrderIndex][6]);
-				break;
-			case "F":
-				userAnswer.push(questions[questionOrderIndex][7]);
-				break;
-		}
 	// The 'else' statement will run if the answer submitted doesn't match with the correct answer.
 	} else {
 		// A message will display to let the user know that their answer was incorrect.
@@ -378,27 +349,28 @@ function checkSelectAnswer() {
 		// Since the user got the question incorrect, the word 'Incorrect' will be added into the 'questionStatus' array.
 		// This is needed in order to display an element on the tables appropriately.
 		questionStatus.push("Incorrect");
-
-		switch (Choice_Selected) {
-		    case "A":
-			    userAnswer.push(questions[questionOrderIndex][2]);
-				break;
-			case "B":
-				userAnswer.push(questions[questionOrderIndex][3]);
-				break;
-			case "C":
-				userAnswer.push(questions[questionOrderIndex][4]);
-				break;
-			case "D":
-			    userAnswer.push(questions[questionOrderIndex][5]);
-				break;
-			case "E":
-				userAnswer.push(questions[questionOrderIndex][6]);
-				break;
-			case "F":
-				userAnswer.push(questions[questionOrderIndex][7]);
-				break;
-		}
+	}
+	
+	// Store the user's selected answer (the character/word is stored, not the letter).
+	switch (choice_selected) {
+	    case "A":
+		    userAnswer.push(questions[questionOrderIndex][2]);
+			break;
+		case "B":
+			userAnswer.push(questions[questionOrderIndex][3]);
+			break;
+		case "C":
+			userAnswer.push(questions[questionOrderIndex][4]);
+			break;
+		case "D":
+		    userAnswer.push(questions[questionOrderIndex][5]);
+			break;
+		case "E":
+			userAnswer.push(questions[questionOrderIndex][6]);
+			break;
+		case "F":
+			userAnswer.push(questions[questionOrderIndex][7]);
+			break;
 	}
 
 	// The 'total' variable will increment by 1. The 'total' variable will still increment by 1 if the user answers a translation question.
@@ -478,7 +450,7 @@ function checkTranslateAnswer() {
 // Determines the progress based on the number of questions answered.
 function progressNextQuestion() {
 	// Show the next question if all questions haven't been answered.
-	if (questionsAnswered < 10) {
+	if (questionsAnswered < NUM_OF_QUESTIONS) {
 		renderQuestion();
 		
 	// Show the results when all questions have been answered.
@@ -493,7 +465,6 @@ window.onload = function() {
   setQuestionOrder();
   renderQuestion();
 }
-
 </script>
 </body>
 </html>
