@@ -9,7 +9,7 @@
 
 <script>
 
-// The characters have their unicode representations stored in variables in order for them to be easily recognise throughout the code. 
+// Characters need to be stored in their unicode representation. 
 var ni = '\u4F60';
 var nin = '\u60A8';
 var hao = '\u597D';
@@ -30,7 +30,7 @@ var memory_tile_ids = [];
 var tilesFlipped = 0;
 
 // This code is the shuffle method used to randomise the values in ‘gameTiles’. The code was found through research on the internet.
-Array.prototype.memory_tile_shuffle = function() {
+Array.prototype.shuffle_tiles = function() {
     var i = this.length, j, temp;
     while (--i > 0) {
         j = Math.floor(Math.random() * (i + 1));
@@ -40,24 +40,24 @@ Array.prototype.memory_tile_shuffle = function() {
     }
 }
 
+// Generates a new board.
 function newBoard() {
 	tilesFlipped = 0;
 	var tiles_generated = '';
-	
-	// The shuffle method is applied to 'gameTiles'. 
-    gameTiles.memory_tile_shuffle(); 
+    gameTiles.shuffle_tiles(); 
 	
 	// 'gameTiles' is searched and a tile is added in the variable 'tiles_generated' for every value in 'gameTiles'.
 	for (var i = 0; i < gameTiles.length; i++) {
-		// When a tile is clicked on, run the memoryFlipTile method.
-		tiles_generated += '<div id="tile_' + i +'" onclick="memoryFlipTile(this,\'' + gameTiles[i] + '\')"></div>';
+		// When a tile is clicked on, run the flipTile method.
+		tiles_generated += '<div id="tile_' + i +'" onclick="flipTile(this,\'' + gameTiles[i] + '\')"></div>';
 	}   
 	
 	// At the end of the 'FOR' loop, the contents of 'tiles_generated' (the tiles) is equated to the memory board   
 	document.getElementById('memory_board').innerHTML = tiles_generated;
 }
 
-function memoryFlipTile(tile, value) {
+// Performs the actions involved when flipping a single tile.
+function flipTile(tile, value) {
 	// The code will run if a tile is not currently selected, but clicked on and there are less than two tiles selected.
 	if (tile.innerHTML == "" && tilesSelected.length < 2) {
 		
@@ -91,42 +91,38 @@ function memoryFlipTile(tile, value) {
 				tilesSelected = [];
             	memory_tile_ids = [];
 				 
-				// Check to see if the whole board is cleared.
+				// Generate a new board once all the tiles have been flipped.
 				if (tilesFlipped == gameTiles.length) {
-				
-					// This will empty the memory board in order for a new one to be created.
 					alert("Board cleared... generating new board");
 					document.getElementById('memory_board').innerHTML = "";               
-					
-					// This calls the ‘newBoard’ function to create a new board.
 					newBoard();
-					
 				}
 				
-			// The code below will run if the tiles selected do not match.
+			// Flip the tiles back if they don't match.
 			} else {
-				// Flip the 2 tiles back over
-				function flip_tiles_Back() {
-					
-					// The first tile ID in the array is stored in a variable.
-				    var tile_1 = document.getElementById(memory_tile_ids[0]);
-					
-					// The second tile ID in the array is stored in a variable.
-				    var tile_2 = document.getElementById(memory_tile_ids[1]);  
-					
-					// Both variables are cleared in order for both tiles to be flipped back over. 
-            	    tile_1.innerHTML = "";
-            	    tile_2.innerHTML = "";
-					
-					// Both arrays are cleared.
-				    tilesSelected = [];
-            	    memory_tile_ids = [];
-				}
 				// The time it takes for the cards to flip back over.
 				setTimeout(flip_tiles_Back, 700);
 			}
 		}
 	}
+}
+
+// Flip the 2 tiles back over
+function flip_tiles_Back() {
+					
+	// The first tile ID in the array is stored in a variable.
+	var tile_1 = document.getElementById(memory_tile_ids[0]);
+					
+	// The second tile ID in the array is stored in a variable.
+	var tile_2 = document.getElementById(memory_tile_ids[1]);  
+					
+	// Both variables are cleared in order for both tiles to be flipped back over. 
+    tile_1.innerHTML = "";
+    tile_2.innerHTML = "";
+					
+	// Both arrays are cleared.
+	tilesSelected = [];
+    memory_tile_ids = [];
 }
 
 // Gets the tile value's index in its respective array.

@@ -21,7 +21,7 @@ var tilesSelected = [];
 var memory_tile_ids = [];
 var tilesFlipped = 0;
 
-Array.prototype.memory_tile_shuffle = function() {
+Array.prototype.shuffle_tiles = function() {
     var i = this.length, j, temp;
     while (--i > 0) {
         j = Math.floor(Math.random() * (i + 1));
@@ -34,14 +34,14 @@ Array.prototype.memory_tile_shuffle = function() {
 function newBoard() {
 	tilesFlipped = 0;
 	var tiles_generated = '';
-    gameTiles.memory_tile_shuffle();
+    gameTiles.shuffle_tiles();
 	for (var i = 0; i < gameTiles.length; i++) {
-		tiles_generated  += '<div id="tile_' + i + '" onclick="memoryFlipTile(this,\'' + gameTiles[i] + '\')"></div>';
+		tiles_generated  += '<div id="tile_' + i + '" onclick="flipTile(this,\'' + gameTiles[i] + '\')"></div>';
 	}
 	document.getElementById('memory_board').innerHTML = tiles_generated;
 }
 
-function memoryFlipTile(tile, value) {
+function flipTile(tile, value) {
 	if (tile.innerHTML == "" && tilesSelected.length < 2) {
 		tile.style.background = 'White';
 		tile.innerHTML = value;
@@ -62,19 +62,22 @@ function memoryFlipTile(tile, value) {
 					document.getElementById('memory_board').innerHTML = "";
 					newBoard();
 				}
+			// Flip back the tiles if they don't match.
 			} else {
-				function flip_Tiles_Back() {
-				    var tile_1 = document.getElementById(memory_tile_ids[0]);
-				    var tile_2 = document.getElementById(memory_tile_ids[1]);
-            	    tile_1.innerHTML = "";
-            	    tile_2.innerHTML = "";
-				    tilesSelected = [];
-            	    memory_tile_ids = [];
-				}
-				setTimeout(flip_Tiles_Back, 700);
+				setTimeout(flip_tiles_back, 700);
 			}
 		}
 	}
+}
+
+// Flip the tiles back.
+function flip_tiles_back() {
+	var tile_1 = document.getElementById(memory_tile_ids[0]);
+	var tile_2 = document.getElementById(memory_tile_ids[1]);
+    tile_1.innerHTML = "";
+    tile_2.innerHTML = "";
+	tilesSelected = [];
+    memory_tile_ids = [];
 }
 
 // Gets the tile value's index in its respective array.

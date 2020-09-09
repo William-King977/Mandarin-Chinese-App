@@ -61,21 +61,21 @@ var correct = 0;
 // This is a 2-D array because it's an array that will hold other arrays that
 // will have the question and possible answers. The questions require the user to translate sentences.
 var questionSet1 = [
-    [ "Translate: \u4F60\u597D ", "hello", "hi"],
-    [ "Translate: \u4F60\u597D\u5417?", "how are you?", "how are you" ],
-    [ "Translate: \u6211\u5F88\u597D", "i'm good", "i'm fine", "i am good", "i am fine" ],
+    [ "Translate: \u4F60\u597D ", ["hello", "hi"]],
+    [ "Translate: \u4F60\u597D\u5417?", ["how are you?", "how are you"]],
+    [ "Translate: \u6211\u5F88\u597D", ["i'm good", "i'm fine", "i am good", "i am fine"]],
 
 ];
 
 // 'questionSet2' stores the second type of questions that the user can receive. This is also a 2-D array
 // with questions that require the user to translate single characters.
 var questionSet2 = [
-    [ "Translate: \u4F60", "you" ],
-    [ "Translate: \u60A8", "you (polite version)", "you" ],
-    [ "Translate: \u597D", "good, fine", "good", "fine" ],
-	[ "Translate: \u6211", "i, me", "i", "me" ],
-	[ "Translate: \u5F88", "very" ],
-	[ "Translate: \u5417", "interrogative word (used at the end of a statement to form a question)", "interrogative word" ],
+    [ "Translate: \u4F60", ["you"]],
+    [ "Translate: \u60A8", ["you (polite version)", "you"]],
+    [ "Translate: \u597D", ["good, fine", "good", "fine"]],
+	[ "Translate: \u6211", ["i, me", "i", "me"]],
+	[ "Translate: \u5F88", ["very"]],
+	[ "Translate: \u5417", ["interrogative word (used at the end of a statement to form a question)", "interrogative word"]],
 ];
 
 // 'questionSet3' stores the third type of questions that the user can receive. This is also a 2-D array with questions that require the user to select
@@ -548,51 +548,31 @@ function checkSelectAnswer() {
 
 // This function runs through code that checks if the user's answer for the translation answers are correct or not.
 function checkTranslateAnswer() {
-	// 'Letters&Spaces' variable holds the expression that allows lowercase and uppercase letters and spaces.
-	var LettersSpaces = /^[a-zA-Z ]+$/;
+	// 'Letters&Spaces' variable holds the expression that allows spaces, apostrophes, lowercase and uppercase letters.
+	var lettersSpaces = /^[a-zA-Z-' ]+$/;
 
-	// 'SpacesOrNoInput' variable holds the expression that allows spaces or no inputs.
-	var SpacesOrNoInput = /^ *$/;
+	// 'spacesOrNoInput' variable holds the expression that allows spaces or no inputs.
+	var spacesOrNoInput = /^ *$/;
 
 	// The answer the user typed in is retrieved by ID and it's all set to lowercase.
-	var Translate_Answer = (document.getElementById("Translate").value).toLowerCase();
+	var translate_answer = (document.getElementById("Translate").value).toLowerCase();
 
 	// Throughout the next following 'IF' statements, the answer the user inputted will be compared with the
 	// rest of the items in the list of the question. This is because each word/character has a different number of possible translations
 	// to each other.
-	if (Translate_Answer == questions[questionOrderIndex][1]) {
-
+	if (questions[questionOrderIndex][1].includes(translate_answer)) {
 		correct++;
-
 		alert("Correct.");
-		//The prompt will display a message notifying that the user's answer was correct.
 
 		// The user's current question on the test will be added into the 'userQuestion' array.
 		userQuestion.push(questions[questionOrderIndex]);
 
 		// The user's inputted answer will be added into the 'userAnswer' array.
-		userAnswer.push(Translate_Answer);
+		userAnswer.push(translate_answer);
 		questionStatus.push("Correct");
-	} else if (Translate_Answer == questions[questionOrderIndex][2]) {
-		correct++;
-		alert("Correct.");
-		userQuestion.push(questions[questionOrderIndex]);
-		userAnswer.push(Translate_Answer);
-		questionStatus.push("Correct");
-	} else if (Translate_Answer == questions[questionOrderIndex][3]) {
-		correct++;
-		alert("Correct.");
-		userQuestion.push(questions[questionOrderIndex]);
-		userAnswer.push(Translate_Answer);
-		questionStatus.push("Correct");
-	} else if (Translate_Answer == questions[questionOrderIndex][4]) {
-		correct++;
-		alert("Correct.");
-		userQuestion.push(questions[questionOrderIndex]);
-		userAnswer.push(Translate_Answer);
-		questionStatus.push("Correct");
-	// Gets the length of the answer (Translate_Answer) and checks if it's greater than 70.
-	} else if (Translate_Answer.length > 70) {
+		
+	// Gets the length of the answer (translate_answer) and checks if it's greater than 70.
+	} else if (translate_answer.length > 70) {
 	    // The prompt will display a message to the user notifying them that they need to enter an answer that is less than 70 characters.
 		alert("Please enter a suitable length answer that is less than 70 characters.")
 
@@ -600,14 +580,14 @@ function checkTranslateAnswer() {
 		return false;
 
 	// This will occur if the user submits an answer, but it doesn't have any input or if it has spaces only.
-	} else if (SpacesOrNoInput.test(Translate_Answer)){
+	} else if (spacesOrNoInput.test(translate_answer)){
 	    // The prompt will display a message and 'false' will return meaning that the user will be stuck on the page until a valid input is submitted.
 		alert("Please enter an answer.")
 		return false;
 
-	// This condition will see if the contents of the variable 'Translate_Answer' matches with the rules of the expression.
+	// This condition will see if the contents of the variable 'translate_answer' matches with the rules of the expression.
 	// This condition will only run if it returns 'false', meaning that the input doesn't meet the expression.
-	} else if (!LettersSpaces.test(Translate_Answer)){
+	} else if (!lettersSpaces.test(translate_answer)){
 	    //A suitable message will display notifying the user that their answer doesn't contain letters and spaces.
 		alert("Please enter a valid answer with letters and suitable spaces only.");
 
@@ -619,7 +599,7 @@ function checkTranslateAnswer() {
 	} else {
 		alert("Incorrect.");
 		userQuestion.push(questions[questionOrderIndex]);
-		userAnswer.push(Translate_Answer);
+		userAnswer.push(translate_answer);
 		questionStatus.push("Incorrect");
 	}
 
