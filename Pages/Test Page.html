@@ -147,15 +147,13 @@ var questionStatus = [];
 
 // This function will display all the questions, user's answers and an example correct answer from the test the user has done.
 function showResults() {
-	// The variable 'table' is equated to a created element called 'table'. This will have HTML properities meaning that a table can be created.
-	var table = document.createElement('table');
-	
-	// This will display a border around the whole table that will be created.
-	table.style.border = "solid";
+	// Create a table object.
+	var tblResults = document.createElement('table');
+	tblResults.style.border = "solid";
 	
 	// Add a row for each question.
 	for (var i = 0; i < (NUM_OF_QUESTIONS + 1); i++) {
-		var row = table.insertRow(i);
+		var row = tblResults.insertRow(i);
 		
 		// Insert the columns for the row.
 		var colQuestion = row.insertCell(0);
@@ -167,7 +165,7 @@ function showResults() {
 		colUserAnswer.style.border = "solid";
 		colCorrectAnswer.style.border = "solid";
 		
-		// If it's the top row (headers).
+		// If it's the top row, then insert the headers.
 		if (i == 0) {
 			// Set the headers in the cells.
 			colQuestion.innerHTML = '<b> Question </b>';
@@ -178,7 +176,7 @@ function showResults() {
 			colQuestion.innerHTML = userQuestion[i - 1][0];
 			colUserAnswer.innerHTML = userAnswer[i - 1];
 			
-			// If it's a translate question, then only show one correct answer.
+			// If it's a translate question, then show the first correct answer.
 			if (userQuestion[i - 1][0].indexOf("Translate:") >= 0) {
 				colCorrectAnswer.innerHTML = userQuestion[i - 1][1][0];
 			} else {
@@ -207,7 +205,7 @@ function showResults() {
 					  "The answers highlighted in <span style ='color:#FF0000'> RED </span> are INCORRECT.</h5>"
 	
 	// The table created will be appended (added) into the test 'div'. This will display the table.
-	test.appendChild(table);
+	test.appendChild(tblResults);
 	
 	// The 'Re-Test' button is shown on the results page. '<br>' will space the button from the table.
 	test.innerHTML += '<br><button onclick="location.reload()">Re-Test</a>';
@@ -235,10 +233,7 @@ function renderResults() {
 // percentage of correct answers from the user (this will only show after answering the first question) and
 // displaying how the questions will be laid out on the screen).
 function renderQuestion() {
-	// The question be selected from 'questions' array by searching the 2-D list. 'questionOrderIndex' is
-	// the location of the array that holds the question with it's options and the index next to 'questionOrderIndex'
-	// holds the first element of the array that holds the question. For this specific variable, 'question' will
-	// hold the question which will be displayed on the screen.
+	// Get the current question.
 	var question = questions[questionOrderIndex][0];
 
 	// The current question position will be displayed as the new header by using the 'getItem' function, then inputting it into

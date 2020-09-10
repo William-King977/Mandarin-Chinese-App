@@ -27,7 +27,7 @@ var pinyinList = [you, youP, good, me, very, inter];
 var gameTiles = charList.concat(pinyinList);
 var tilesSelected = [];
 var memory_tile_ids = [];
-var tilesFlipped = 0;
+var totalTilesFlipped = 0;
 
 Array.prototype.shuffle_tiles = function() {
     var i = this.length, j, temp;
@@ -40,11 +40,11 @@ Array.prototype.shuffle_tiles = function() {
 }
 
 function newBoard() {
-	tilesFlipped = 0;
+	totalTilesFlipped = 0;
 	var tiles_generated = '';
     gameTiles.shuffle_tiles();
 	for (var i = 0; i < gameTiles.length; i++) {
-		tiles_generated  += '<div id="tile_' + i + '" onclick="flipTile(this,\'' + gameTiles[i] + '\')"></div>';
+		tiles_generated  += "<div id = 'tile_" + i + "' onclick = 'flipTile(this,\"" + gameTiles[i] + "\")'></div>";
 	}
 	document.getElementById('memory_board').innerHTML = tiles_generated;
 }
@@ -53,27 +53,32 @@ function flipTile(tile, value) {
 	if (tile.innerHTML == "" && tilesSelected.length < 2) {
 		tile.style.background = 'White';
 		tile.innerHTML = value;
-		if (tilesSelected.length == 0) {
-			var indexSelected = getItemPosition(value);
-			tilesSelected.push(indexSelected);
-			memory_tile_ids.push(tile.id);
-		} else if (tilesSelected.length == 1) {
-			var indexSelected = getItemPosition(value);
-			tilesSelected.push(indexSelected);
-			memory_tile_ids.push(tile.id);
-			if (tilesSelected[0] == tilesSelected[1]) {
-				tilesFlipped += 2;
-				tilesSelected = [];
-            	memory_tile_ids = [];
-				if (tilesFlipped == gameTiles.length) {
-					alert("Board cleared... generating new board");
-					document.getElementById('memory_board').innerHTML = "";
-					newBoard();
+		
+		switch (tilesSelected.length) {
+			case 0:
+				var indexSelected = getItemPosition(value);
+				tilesSelected.push(indexSelected);
+				memory_tile_ids.push(tile.id);
+				break;
+			case 1:
+				var indexSelected = getItemPosition(value);
+				tilesSelected.push(indexSelected);
+				memory_tile_ids.push(tile.id);
+				// If the tiles match.
+				if (tilesSelected[0] == tilesSelected[1]) {
+					totalTilesFlipped += 2;
+					tilesSelected = [];
+					memory_tile_ids = [];
+					if (totalTilesFlipped == gameTiles.length) {
+						alert("Board cleared... generating new board");
+						document.getElementById('memory_board').innerHTML = "";
+						newBoard();
+					}
+				// Flip back the tiles if they don't match.
+				} else {
+					setTimeout(flip_tiles_back, 700);
 				}
-			// Flip back the tiles if they don't match.
-			} else {
-				setTimeout(flip_tiles_back, 700);
-			}
+				break;
 		}
 	}
 }
