@@ -145,94 +145,6 @@ var userAnswer = [];
 // This array will hold if the user was correct or not on a question.
 var questionStatus = [];
 
-// This function will display all the questions, user's answers and an example correct answer from the test the user has done.
-function showResults() {
-	// Create a table object.
-	var tblResults = document.createElement('table');
-	tblResults.style.border = "solid";
-	
-	// Insert the row and columns for the headers.
-	// NOTE: Numbers aren't really needed. Only for specific insertion spots.
-	var row = tblResults.insertRow();
-	var colQuestion = row.insertCell(0);
-	var colUserAnswer = row.insertCell(1);
-	var colCorrectAnswer = row.insertCell(2);
-		
-	// Ajust the cell boarders.
-	colQuestion.style.border = "solid";
-	colUserAnswer.style.border = "solid";
-	colCorrectAnswer.style.border = "solid";
-		
-	// Set the headers in the cells.
-	colQuestion.innerHTML = '<b> Question </b>';
-	colUserAnswer.innerHTML = '<b> Your Answer </b>';
-	colCorrectAnswer.innerHTML = '<b> Correct Answer </b>';
-	
-	// Add a row for each question.
-	for (var i = 0; i < NUM_OF_QUESTIONS; i++) {
-		var row = tblResults.insertRow();
-		
-		// Insert the columns for the row.
-		var colQuestion = row.insertCell(0);
-		var colUserAnswer = row.insertCell(1);
-		var colCorrectAnswer = row.insertCell(2);
-		
-		// Ajust the cell boarders.
-		colQuestion.style.border = "solid";
-		colUserAnswer.style.border = "solid";
-		colCorrectAnswer.style.border = "solid";
-		
-		colQuestion.innerHTML = userQuestion[i][0];
-		colUserAnswer.innerHTML = userAnswer[i];
-			
-		// If it's a translate question, then show the first correct answer.
-		if (userQuestion[i][0].indexOf("Translate:") >= 0) {
-			colCorrectAnswer.innerHTML = userQuestion[i][1][0];
-		} else {
-			colCorrectAnswer.innerHTML = userQuestion[i][2];
-		}
-			
-		// Colour the cell based on the user's answer.
-		// Colour it green if it was correct.
-		if (questionStatus[i] == "Correct") {
-			colUserAnswer.style.border += "#008000";
-		// Otherwise, colour it red (for incorrect).
-		} else {
-			colUserAnswer.style.border += "#FF0000";
-		}
-	}
-
-	// The table will be inserted into the test 'div' which will mean that the test 'div' will be equated to a variable.
-	var test = document.getElementById('test');
-
-	// Show the user's score and some text to help the user understand what's shown/highlighted on the table.
-	test.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS + " questions correct</h2>";
-	test.innerHTML += "<h5>The answers you entered that are highlighted <span style ='color:#008000'> GREEN </span> are CORRECT. " +
-					  "The answers highlighted in <span style ='color:#FF0000'> RED </span> are INCORRECT.</h5>"
-	
-	// Show the table on the page.
-	test.appendChild(tblResults);
-	test.innerHTML += '<br><button onclick="location.reload()"> Re-Test </a>';
-}
-
-// The function 'renderResults' displays the test results to the user, showing them how they did.
-function renderResults() {
-	// The 'test' div is retrieved by ID (from the 'getItem' function created) and is stored in a variable called 'test'.
-  	var test = getItem("test");
-
-	// The 'test' div is equated to the user's test results and it replaces any current 'test' div contents.
-  	test.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
-
-	// This displays a button that will lead to the 'results' function. This will lead to a function that will display the user's test results in a table.
-	// When the button is shown to the user, it will have the text 'View Results'.
-  	getItem("test_status").innerHTML = "Test Completed";
-	test.innerHTML += '<button onclick="showResults()"> View Results </a>';
-
-	// A button displayed as 'Re-test' will be inputted into the 'test' div. Clicking the button will result in the page in loading again.
-  	// 'location.reload()' will reload the current page which is the test page.
-  	test.innerHTML += '<br><br><button onclick="location.reload()"> Re-test </a> ';
-}
-
 // This function will lead to code that will display the question number that the user is on, the current
 // percentage of correct answers from the user (this will only show after answering the first question) and
 // displaying how the questions will be laid out on the screen).
@@ -317,7 +229,7 @@ function checkSelectAnswer() {
 		alert("Correct.");
 		// Since the user has got the question correct, the word 'Correct' will be added into the 'questionStatus' array.
 		// This is needed to compare if the user has got a question correct or not when displaying the table.
-		questionStatus.push("Correct")
+		questionStatus.push("Correct");
 
 	// If it was incorrect.
 	} else {
@@ -366,7 +278,7 @@ function checkTranslateAnswer() {
 
 	// If there is no input.
 	} else if (spacesOrNoInput.test(translate_answer)){
-		alert("Please enter an answer.")
+		alert("Please enter an answer.");
 		return false;
 
 	// If non-alphabetic characters were entered.
@@ -398,6 +310,94 @@ function progressNextQuestion() {
 	} else {
 		renderResults();
 	}
+}
+
+// The function 'renderResults' displays the test results to the user, showing them how they did.
+function renderResults() {
+	// The 'test' div is retrieved by ID (from the 'getItem' function created) and is stored in a variable called 'test'.
+  	var test = getItem("test");
+
+	// The 'test' div is equated to the user's test results and it replaces any current 'test' div contents.
+  	test.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
+
+	// This displays a button that will lead to the 'results' function. This will lead to a function that will display the user's test results in a table.
+	// When the button is shown to the user, it will have the text 'View Results'.
+  	getItem("test_status").innerHTML = "Test Completed";
+	test.innerHTML += '<button onclick="showResults()"> View Results </a>';
+
+	// A button displayed as 'Re-test' will be inputted into the 'test' div. Clicking the button will result in the page in loading again.
+  	// 'location.reload()' will reload the current page which is the test page.
+  	test.innerHTML += '<br><br><button onclick="location.reload()"> Re-test </a> ';
+}
+
+// This function will display all the questions, user's answers and an example correct answer from the test the user has done.
+function showResults() {
+	// Create a table object.
+	var tblResults = document.createElement('table');
+	tblResults.style.border = "solid";
+	
+	// Insert the row and columns for the headers.
+	// NOTE: Numbers aren't really needed. Only for specific insertion spots.
+	var row = tblResults.insertRow();
+	var colQuestion = row.insertCell(0);
+	var colUserAnswer = row.insertCell(1);
+	var colCorrectAnswer = row.insertCell(2);
+		
+	// Ajust the cell boarders.
+	colQuestion.style.border = "solid";
+	colUserAnswer.style.border = "solid";
+	colCorrectAnswer.style.border = "solid";
+		
+	// Set the headers in the cells.
+	colQuestion.innerHTML = '<b> Question </b>';
+	colUserAnswer.innerHTML = '<b> Your Answer </b>';
+	colCorrectAnswer.innerHTML = '<b> Correct Answer </b>';
+	
+	// Add a row for each question.
+	for (var i = 0; i < NUM_OF_QUESTIONS; i++) {
+		var row = tblResults.insertRow();
+		
+		// Insert the columns for the row.
+		var colQuestion = row.insertCell(0);
+		var colUserAnswer = row.insertCell(1);
+		var colCorrectAnswer = row.insertCell(2);
+		
+		// Ajust the cell boarders.
+		colQuestion.style.border = "solid";
+		colUserAnswer.style.border = "solid";
+		colCorrectAnswer.style.border = "solid";
+		
+		colQuestion.innerHTML = userQuestion[i][0];
+		colUserAnswer.innerHTML = userAnswer[i];
+			
+		// If it's a translate question, then show the first correct answer.
+		if (userQuestion[i][0].indexOf("Translate:") >= 0) {
+			colCorrectAnswer.innerHTML = userQuestion[i][1][0];
+		} else {
+			colCorrectAnswer.innerHTML = userQuestion[i][2];
+		}
+			
+		// Colour the cell based on the user's answer.
+		// Colour it green if it was correct.
+		if (questionStatus[i] == "Correct") {
+			colUserAnswer.style.border += "#008000";
+		// Otherwise, colour it red (for incorrect).
+		} else {
+			colUserAnswer.style.border += "#FF0000";
+		}
+	}
+
+	// The table will be inserted into the test 'div' which will mean that the test 'div' will be equated to a variable.
+	var test = document.getElementById('test');
+
+	// Show the user's score and some text to help the user understand what's shown/highlighted on the table.
+	test.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS + " questions correct</h2>";
+	test.innerHTML += "<h5>The answers you entered that are highlighted <span style ='color:#008000'> GREEN </span> are CORRECT. " +
+					  "The answers highlighted in <span style ='color:#FF0000'> RED </span> are INCORRECT.</h5>"
+	
+	// Show the table on the page.
+	test.appendChild(tblResults);
+	test.innerHTML += '<br><button onclick="location.reload()"> Re-Test </a>';
 }
 
 // 'window.onload' allows the functions to be called when the page is accessed in order for the code
