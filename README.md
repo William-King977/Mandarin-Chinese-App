@@ -7,8 +7,3 @@ This is a continuation from 'Prototype 3'. Adding new lessons will basically be 
 - **Sentences:** Shows the example sentences where the new words are used.
 - **Memory Game:** Help memorise the new words by playing the tile flip game.
 - **Test Assessment:** Users are assessed on their knowledge of the new words with a mix of questions.
-
-# Aims for Now
-- Refactor the code.
-- Save the user's progress based on their Test Assessment performances (File Handling).
-- Show questions that the user need more work on (i.e. the ones they're getting wrong).
