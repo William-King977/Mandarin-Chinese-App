@@ -6,12 +6,10 @@
 
 <body>
 	<div>
-		<!--'test_status' is the ID for header 1. JavaScript code later on will be used to retrieve the header by ID and change the contents.-->
-		<h1 id="test_status">Chinese Mandarin Test</h1>
+		<!--'mainHeader' is the ID for header 1. JavaScript code later on will be used to retrieve the header by ID and change the contents.-->
+		<h1 id = "mainHeader">Chinese Mandarin Test</h1>
 
-		<!--The code above defines a section of the page with an ID of 'test' which will be the space that the test questions will be displayed.
-			CSS will be used to create the box for the space.-->
-		<div id="test"></div>
+		<div id="testCont"></div>
 
 		<!--This is the back button for the test page which is given a class of 'TestBack'.-->
 		<br><input class="btnBack" onClick="window.location.href = '5) Assessment Page.html'" type="button" value="Quit Test"/>
@@ -24,13 +22,6 @@
 // The result generated will be subtracted by 0.5 meaning that the function will either return -0.5 or 0.5.
 function randOrd() {
 	return (Math.round(Math.random())-0.5);
-}
-
-// The function 'getItem' will be used to retrieve certain HTML items by ID. The parameter 'x' represents the name of the HTML value to be retrieved by ID.
-// For example: 'var test = getItem("test")' will equate the 'test' div from the HTML to the variable 'test'. This will allow the div to be modified by using JavaScript code.
-// Later on in the code, items will be added into the 'test' div with JavaScript.
-function getItem(x) {
-	return document.getElementById(x);
 }
 
 // The characters that will be used for the questions are stored in their own variables in order for them to be
@@ -55,6 +46,22 @@ var questionOrderIndex = 0;
 // 'total' will represent the total number of questions that have been asked.
 var total = 0;
 var correct = 0;
+
+// This is a blank array that will contain the questions that the user will receive for the test.
+var questions = [];
+const NUM_OF_QUESTIONS = 10;
+
+// This global array will hold numbers which will represent the order that the questions will be displayed.
+var questionOrder = [];
+
+// This array will hold each of the questions the user recieves through a test. This will be used to display the questions on a table at the end of the test.
+var userQuestion = [];
+
+// This array will hold the user's answer that they inputted for each question.
+var userAnswer = [];
+
+// This array will hold if the user was correct or not on a question.
+var questionStatus = [];
 
 // 'questionSet1' stores the first type of questions that the user can receive in the test.
 // This is a 2-D array because it's an array that will hold other arrays that
@@ -93,10 +100,6 @@ var questionSet3 = [
 	["Select the character matching: Interrogative word (used at the end of a statement to form a question)", [ni, hao, ma, hen, wo, nin], ma]
 ];
 
-// This is a blank array that will contain the questions that the user will receive for the test.
-var questions = [];
-const NUM_OF_QUESTIONS = 10;
-
 // All the question sets are randomised in order to prevent the user from recieving exactly the same questions on each test.
 // 'randOrd' is a function that is used as the shuffle method for array items. The 'randOrd' function returns a number
 // that is equally likely to be either negative or positive meaning that a random order will occur when 'sort()' is used.
@@ -122,9 +125,6 @@ for (var i = 0; questions.length < NUM_OF_QUESTIONS; i++) {
 	}
 }
 
-// This global array will hold numbers which will represent the order that the questions will be displayed.
-var questionOrder = [];
-
 function setQuestionOrder() {
   for (var i = 0; i < NUM_OF_QUESTIONS; i++) {
       questionOrder.push(i);
@@ -136,15 +136,6 @@ function setQuestionOrder() {
   questionOrderIndex = questionOrder[questionsAnswered];
 }
 
-// This array will hold each of the questions the user recieves through a test. This will be used to display the questions on a table at the end of the test.
-var userQuestion = [];
-
-// This array will hold the user's answer that they inputted for each question.
-var userAnswer = [];
-
-// This array will hold if the user was correct or not on a question.
-var questionStatus = [];
-
 // This function will lead to code that will display the question number that the user is on, the current
 // percentage of correct answers from the user (this will only show after answering the first question) and
 // displaying how the questions will be laid out on the screen).
@@ -153,43 +144,44 @@ function renderQuestion() {
 	var question = questions[questionOrderIndex][0];
 
 	// The current question position will be displayed as the new header by using the 'getItem' function, then inputting it into
-	// 'test_status' header. The current position will be the variable 'questionsAnswered' with 1 added because
+	// 'mainHeader' header. The current position will be the variable 'questionsAnswered' with 1 added because
 	// 'questionsAnswered' will start off as '0' meaning an extra value needs to be added.
 	// A question number can't start off as 0.
-	var test = getItem("test");
-	getItem("test_status").innerHTML = "Question " + (questionsAnswered + 1) + " of " + NUM_OF_QUESTIONS;
+	var testCont = document.getElementById("testCont");
+	var mainHeader = document.getElementById("mainHeader");
+	mainHeader.innerHTML = "Question " + (questionsAnswered + 1) + " of " + NUM_OF_QUESTIONS;
 
 	// This code will run only if the user has answered at least one question. The percentage of questions the user has currently got correct in the test
-	// will be added into the 'test_status' header and displayed under the current contents of the header.
+	// will be added into the 'mainHeader' header and displayed under the current contents of the header.
 	if (total != 0) {
-		getItem("test_status").innerHTML += '<br>Currently: '+ (correct/total * 100).toFixed(0) + '% correct';
+		mainHeader.innerHTML += '<br>Currently: '+ (correct/total * 100).toFixed(0) + '% correct';
 	}
 
 	// This checks if specific words are in the question. For this case it's 'Select the' which will mean that the question will require a selection for the answer.
 	if (question.indexOf("Select the") >= 0) {
 		
 		//The question is displayed.
-	    test.innerHTML = "<h3>" + question + "</h3>";
+	    testCont.innerHTML = "<h3>" + question + "</h3>";
 		
 		// Adds each answer options (for the question) to the page.
 		for (var i = 0; i < questions[questionOrderIndex][1].length; i++) {
 			var radioBox = questions[questionOrderIndex][1][i];
-			test.innerHTML += "<label><input type='radio' name='choices' value='" + radioBox + "'>" + radioBox + "</label><br>";
+			testCont.innerHTML += "<label><input type='radio' name='choices' value='" + radioBox + "'>" + radioBox + "</label><br>";
 		}
 
 		// This displays the submit button and when it's clicked on, the 'checkSelectAnswer()' function will run.
-	    test.innerHTML += "<br><button onclick='checkSelectAnswer()'> Submit Answer </button>";
+	    testCont.innerHTML += "<br><button onclick='checkSelectAnswer()'> Submit Answer </button>";
 
 	// This applies if the question has the text 'Translate:'.
 	} else if (question.indexOf("Translate:") >= 0) {
-		test.innerHTML = "<h3>" + question + "</h3>";
+		testCont.innerHTML = "<h3>" + question + "</h3>";
 
 		// This displays a textbox that allows the user to store the value the user types in. It has the ID 'Translate'.
-		test.innerHTML += "<input type='text' id='Translate'><br><br>";
+		testCont.innerHTML += "<input type='text' id='Translate'><br><br>";
 
 		// This is the submit button that will lead to the 'checkTranslateAnswer()' function to check the answer.
 		// The answer checking process is different to the method used for the radio buttons.
-		test.innerHTML += "<button onclick ='checkTranslateAnswer()'> Submit Answer </button>";
+		testCont.innerHTML += "<button onclick ='checkTranslateAnswer()'> Submit Answer </button>";
 	}
 }
 
@@ -314,20 +306,20 @@ function progressNextQuestion() {
 
 // The function 'renderResults' displays the test results to the user, showing them how they did.
 function renderResults() {
-	// The 'test' div is retrieved by ID (from the 'getItem' function created) and is stored in a variable called 'test'.
-  	var test = getItem("test");
+	// The 'testCont' div is retrieved by ID (from the 'getItem' function created) and is stored in a variable called 'testCont'.
+  	var testCont = document.getElementById("testCont");
 
-	// The 'test' div is equated to the user's test results and it replaces any current 'test' div contents.
-  	test.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
+	// The 'testCont' div is equated to the user's testCont results and it replaces any current 'testCont' div contents.
+  	testCont.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
 
-	// This displays a button that will lead to the 'results' function. This will lead to a function that will display the user's test results in a table.
+	// This displays a button that will lead to the 'results' function. This will lead to a function that will display the user's testCont results in a table.
 	// When the button is shown to the user, it will have the text 'View Results'.
-  	getItem("test_status").innerHTML = "Test Completed";
-	test.innerHTML += '<button onclick="showResults()"> View Results </a>';
+  	document.getElementById("mainHeader").innerHTML = "Test Completed";
+	testCont.innerHTML += '<button onclick="showResults()"> View Results </a>';
 
-	// A button displayed as 'Re-test' will be inputted into the 'test' div. Clicking the button will result in the page in loading again.
+	// A button displayed as 'Re-test' will be inputted into the 'testCont' div. Clicking the button will result in the page in loading again.
   	// 'location.reload()' will reload the current page which is the test page.
-  	test.innerHTML += '<br><br><button onclick="location.reload()"> Re-test </a> ';
+  	testCont.innerHTML += '<br><br><button onclick="location.reload()"> Re-test </a> ';
 }
 
 // This function will display all the questions, user's answers and an example correct answer from the test the user has done.
@@ -387,17 +379,17 @@ function showResults() {
 		}
 	}
 
-	// The table will be inserted into the test 'div' which will mean that the test 'div' will be equated to a variable.
-	var test = document.getElementById('test');
+	// The table will be inserted into the test 'div' which will mean that the testCont 'div' will be equated to a variable.
+	var testCont = document.getElementById('testCont');
 
 	// Show the user's score and some text to help the user understand what's shown/highlighted on the table.
-	test.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS + " questions correct</h2>";
-	test.innerHTML += "<h5>The answers you entered that are highlighted <span style ='color:#008000'> GREEN </span> are CORRECT. " +
+	testCont.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS + " questions correct</h2>";
+	testCont.innerHTML += "<h5>The answers you entered that are highlighted <span style ='color:#008000'> GREEN </span> are CORRECT. " +
 					  "The answers highlighted in <span style ='color:#FF0000'> RED </span> are INCORRECT.</h5>"
 	
 	// Show the table on the page.
-	test.appendChild(tblResults);
-	test.innerHTML += '<br><button onclick="location.reload()"> Re-Test </a>';
+	testCont.appendChild(tblResults);
+	testCont.innerHTML += '<br><button onclick="location.reload()"> Re-Test </a>';
 }
 
 // 'window.onload' allows the functions to be called when the page is accessed in order for the code

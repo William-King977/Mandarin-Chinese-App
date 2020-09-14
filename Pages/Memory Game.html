@@ -28,6 +28,8 @@ function setEngToCharTiles() {
 	tileList1 = [ni, nin, hao, wo, hen, ma];
 	tileList2 = ['You', 'You (Polite)', 'Good', 'I, me', 'Very', 'Interrogative word'];
 	gameTiles = tileList1.concat(tileList2);
+	
+	document.getElementById("mainTitle").innerHTML = "English and Characters";
 	removeGameButtons();
 }
 
@@ -43,6 +45,8 @@ function setEngToPinTiles() {
 	tileList1 = ['You', 'You (Polite)', 'Good', 'I, me', 'Very', 'Interrogative word'];
 	tileList2 = [you, youP, good, me, very, inter];
 	gameTiles = tileList1.concat(tileList2);
+	
+	document.getElementById("mainTitle").innerHTML = "English and Pinyin";
 	removeGameButtons();
 }
 
@@ -65,6 +69,8 @@ function setCharToPinTiles() {
 	tileList1 = [ni, nin, hao, wo, hen, ma];
 	tileList2 = [you, youP, good, me, very, inter];
 	gameTiles = tileList1.concat(tileList2);
+	
+	document.getElementById("mainTitle").innerHTML = "Characters and Pinyin";
 	removeGameButtons();
 }
 // Removes the buttons from the page, then runs the game.
@@ -88,7 +94,8 @@ function restoreButtons() {
 	buttonMenu.innerHTML += "<input id = 'EngToPin' class = 'btnGame' onclick = 'setEngToPinTiles()' type = 'button' value = 'English and Pinyin'></input>";
 	buttonMenu.innerHTML += "<input id = 'CharToPin' class = 'btnGame' onclick = 'setCharToPinTiles()' type = 'button' value = 'Characters and Pinyin'></input>";
 	
-	// Clear memory board.
+	// Clear reset title and memory board.
+	document.getElementById("mainTitle").innerHTML = "Select Memory Game";
 	document.getElementById("memory_board").innerHTML = "";
 }
 
@@ -168,7 +175,7 @@ function flipTile(tile, value) {
 						document.getElementById('memory_board').innerHTML = "";               
 						newBoard();
 					}
-					// Flip the tiles back if they don't match.
+				// Flip the tiles back if they don't match.
 				} else {
 					// The time it takes for the cards to flip back over.
 					setTimeout(flip_tiles_back, 700);
