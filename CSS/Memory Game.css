@@ -12,6 +12,7 @@ h1 {
 	text-align: center;
 	font-weight: bold;
 	font-size: 20;
+	cursor: pointer;
 	display: block; /* Keeps buttons vertical. */
 	margin: auto; /* Centres the buttons. */
 	margin-bottom: 20px; /* Gaps between the buttons. */
@@ -25,6 +26,7 @@ h1 {
 	text-align: center;
 	font-weight: bold;
 	font-size: 20;
+	cursor: pointer;
 	display: block; /* Keeps buttons vertical. */
 	margin: auto; /* Centres the buttons. */
 	margin-bottom: 20px; /* Gaps between the buttons. */
@@ -59,7 +61,7 @@ div#memory_board > div {
 	font-family: calibri;
 }
 
-.MemoryGameBack {
+.btnBack {
 	border-radius: 5px;
 	height: 37.5px;
 	width: 100px;
@@ -67,7 +69,7 @@ div#memory_board > div {
 	text-align: center;
 	font-weight: bold;
 	font-size: 24;
+	cursor: pointer;
 	display: block;
 	margin: auto;
-	margin-bottom: 20px;
 }

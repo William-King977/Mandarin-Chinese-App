@@ -14,7 +14,7 @@ div#test {
 }
 
 
-.TestBack {
+.btnBack {
 	border-radius: 5px;
 	height: 37.5px;
 	width: 100px;
@@ -22,9 +22,9 @@ div#test {
 	text-align: center;
 	font-weight: bold;
 	font-size: 24;
-	position: absolute;
-	left: calc(50% - 50px);
-	margin-top: auto;
+	cursor: pointer;
+	display: block;
+	margin: auto;
 }
 
 

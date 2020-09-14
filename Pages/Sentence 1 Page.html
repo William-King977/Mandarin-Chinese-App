@@ -7,26 +7,13 @@
 	<body>
 		<h1>Sentence 1</h1>
 		
-		<!--This tag defines a section of the page and CSS will be used to create a box with it. The box wilL contain the sentences.-->
-		<div class = "RightBox">  
-		
-		<!--This header is smaller than header 1 and this will be positioned below header 1. This will be done to the other header 2.-->
-		<h2>English</h2>  
-		
-		<!--The 'pre' tags allow text to be displayed the way they are typed in HTML. This means that multiple lines can be typed.-->  
-		<pre> Person 1: Hello.
- Person 2: Hello.</pre>
- 		
- 
-		</div>
-		
-		<div class = "LeftBox">
+		<div class = "leftBox">
 		<!--Sound files are referenced because they will be used to show how to pronounce the Chinese Mandarin sentences.--> 
 		<audio id="sentence1-1 sound" src="../Sound Files/Ni Hao.mp3"></audio>
-		<input class="Pronunciation1" onClick="document.getElementById('sentence1-1 sound').play()" type="button" value="&#x1F50A;"/> 
+		<input class="pronunciation1" onClick="document.getElementById('sentence1-1 sound').play()" type="button" value="&#x1F50A;"/> 
 		
 		<audio id="sentence1-2 sound" src="../Sound Files/Ni Hao.mp3"></audio>
-		<input class="Pronunciation2" onClick="document.getElementById('sentence1-2 sound').play()" type="button" value="&#x1F50A;"/>
+		<input class="pronunciation2" onClick="document.getElementById('sentence1-2 sound').play()" type="button" value="&#x1F50A;"/>
 		
 		<h2>Chinese Mandarin</h2>
 		
@@ -38,7 +25,19 @@
 		   n&#464; h&#462;o</pre>  
        
 		</div>
-
-		<input class="Sentenceback" onClick="window.location.href = '4) Sentences Page.html'" type="button" value="Back"/>
+		
+		<!--This tag defines a section of the page and CSS will be used to create a box with it. The box wilL contain the sentences.-->
+		<div class = "rightBox">  
+		
+		<!--This header is smaller than header 1 and this will be positioned below header 1. This will be done to the other header 2.-->
+		<h2>English</h2>  
+		
+		<!--The 'pre' tags allow text to be displayed the way they are typed in HTML. This means that multiple lines can be typed.-->  
+		<pre> Person 1: Hello.
+ Person 2: Hello.</pre>
+ 
+		</div>
+		
+		<input class="btnBack" onClick="window.location.href = '4) Sentences Page.html'" type="button" value="Back"/>
 	</body>
 </html>
