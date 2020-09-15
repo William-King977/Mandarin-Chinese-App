@@ -17,16 +17,18 @@
 	</div>
 
 <script>
-// The function above is the shuffle method that will be used to shuffle the items in the arrays.
-// This function generates a number between 0 and 1, then it's rounded to the nearest whole number meaning that the only possible results are 0 or 1.
-// The result generated will be subtracted by 0.5 meaning that the function will either return -0.5 or 0.5.
-function randOrd() {
-	return (Math.round(Math.random())-0.5);
+// Method to shuffle the questions. The code was found through research on the internet.
+Array.prototype.shuffle_questions = function() {
+    var i = this.length, j, temp;
+    while (--i > 0) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
 }
 
-// The characters that will be used for the questions are stored in their own variables in order for them to be
-// easily added into and recognised throughout the code. The variables can be put into a single line, but it's easier to read when all of the
-// variables have values set.
+// Chinese characters are in their unicode representation.
 var ni = '\u4F60';
 var nin = '\u60A8';
 var hao = '\u597D';
@@ -34,28 +36,15 @@ var wo = '\u6211';
 var hen = '\u5F88';
 var ma = '\u5417';
 
-//'questionsAnswered' will represent the number of questions that have been answered and it will be used as an index to
-// locate the values in the 'questionOrder' array for the variable 'questionOrderIndex' to use.
+// Current number of questions answered.
 var questionsAnswered = 0;
 
-//'questionOrderIndex' will represent the index of the question order which will be used to locate the next question for the test.
-// The question list that contains the questions are not randomised, but the values of 'questionOrder' will be randomised meaning
-// that the questions will be displayed in a random order.
-var questionOrderIndex = 0;
-
-// 'total' will represent the total number of questions that have been asked.
-var total = 0;
+// Current number of correct answers.
 var correct = 0;
 
-// This is a blank array that will contain the questions that the user will receive for the test.
-var questions = [];
+// Holds the questions for the test.
+var testQuestions = [];
 const NUM_OF_QUESTIONS = 10;
-
-// This global array will hold numbers which will represent the order that the questions will be displayed.
-var questionOrder = [];
-
-// This array will hold each of the questions the user recieves through a test. This will be used to display the questions on a table at the end of the test.
-var userQuestion = [];
 
 // This array will hold the user's answer that they inputted for each question.
 var userAnswer = [];
@@ -63,17 +52,15 @@ var userAnswer = [];
 // This array will hold if the user was correct or not on a question.
 var questionStatus = [];
 
-// 'questionSet1' stores the first type of questions that the user can receive in the test.
-// This is a 2-D array because it's an array that will hold other arrays that
-// will have the question and possible answers. The questions require the user to translate sentences.
+// Translate questions for sentences. They have the question, then the possible answers.
+// Each question set is stored in a 2-D array.
 var questionSet1 = [
     ["Translate: \u4F60\u597D ", ["hello", "hi"]],
     ["Translate: \u4F60\u597D\u5417?", ["how are you?", "how are you"]],
     ["Translate: \u6211\u5F88\u597D", ["i'm good", "i'm fine", "i am good", "i am fine"]]
 ];
 
-// 'questionSet2' stores the second type of questions that the user can receive. This is also a 2-D array
-// with questions that require the user to translate single characters.
+// Translate questions for single characters. They have the question, then the possible answers.
 var questionSet2 = [
     ["Translate: \u4F60", ["you"]],
     ["Translate: \u60A8", ["you (polite version)", "you"]],
@@ -83,8 +70,7 @@ var questionSet2 = [
 	["Translate: \u5417", ["interrogative word (used at the end of a statement to form a question)", "interrogative word"]]
 ];
 
-// 'questionSet3' stores the third type of questions that the user can receive. This is also a 2-D array with questions that require the user to select
-// a character or word matching with the word or charcter that is displayed. The last element of each question array holds the letter to the answer.
+// Multiple choice questions. They have the question, choices, then the correct answer.
 var questionSet3 = [
 	["Select the word matching: \u4F60", ["You (Polite Version)", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)", "Good, fine"], "You"],
 	["Select the word matching: \u60A8", ["I, me", "Interrogative word (used at the end of a statement to form a question)", "You", "You (Polite Version)", "Good, fine", "Very"], "You (Polite Version)"],
@@ -100,109 +86,96 @@ var questionSet3 = [
 	["Select the character matching: Interrogative word (used at the end of a statement to form a question)", [ni, hao, ma, hen, wo, nin], ma]
 ];
 
-// All the question sets are randomised in order to prevent the user from recieving exactly the same questions on each test.
-// 'randOrd' is a function that is used as the shuffle method for array items. The 'randOrd' function returns a number
-// that is equally likely to be either negative or positive meaning that a random order will occur when 'sort()' is used.
-questionSet1.sort(randOrd);
-questionSet2.sort(randOrd);
-questionSet3.sort(randOrd);
-
-// This 'FOR' loop will add the questions from the question lists into the 'questions' array until there are 10 items (questions) in the array.
-// 'i' will represent the question number for each list. The maximum value that 'i' will be is 2 because there are only 3 questions minimum from 'questionSet1'.
-for (var i = 0; questions.length < NUM_OF_QUESTIONS; i++) {
-
-	// This will only apply if there are 9 questions in the 'questions' array.
-	if (questions.length == 9) {
-		// A question from 'questionSet2' will be added to the 'questions' array, but this means that
-		// there will be more questions from 'questionSet2' than any of the other questions.
-		questions.push(questionSet2[i]);
-
-	// If there are less than 9 questions in total, one question from each of teh question sets will be added into the 'questions' array.
-	} else {
-		questions.push(questionSet1[i]);
-		questions.push(questionSet2[i]);
-		questions.push(questionSet3[i]);
+// Shuffles each question and the options for the multiple choice questions.
+function randomiseQuestions() {
+	// Shuffle the options for the multiple choice questions.
+	for (var i = 0; i < questionSet3.length; i++) {
+		questionSet3[i][1].shuffle_questions();
 	}
+	
+	// Shuffle each question set.
+	questionSet1.shuffle_questions();
+	questionSet2.shuffle_questions();
+	questionSet3.shuffle_questions();
 }
 
-function setQuestionOrder() {
-  for (var i = 0; i < NUM_OF_QUESTIONS; i++) {
-      questionOrder.push(i);
-  }
-
-  // When the 'FOR' loop has been executed, the 'questionOrder' array will be randomised. This will mean that the questions will display in a random order.
-  questionOrder.sort(randOrd);
-  questionsAnswered = 0;
-  questionOrderIndex = questionOrder[questionsAnswered];
+// Selects the questions for the test.
+function selectQuestions() {
+	// Shuffle the question sets.
+	randomiseQuestions();
+	
+	for (var i = 0; testQuestions.length < NUM_OF_QUESTIONS; i++) {
+		// Favours question set 2.
+		if (testQuestions.length == 9) {
+			testQuestions.push(questionSet2[i]);
+		} else {
+			testQuestions.push(questionSet1[i]);
+			testQuestions.push(questionSet2[i]);
+			testQuestions.push(questionSet3[i]);
+		}
+	}
+	
+	// Shuffle the questions for the test.
+	testQuestions.shuffle_questions();
 }
 
-// This function will lead to code that will display the question number that the user is on, the current
-// percentage of correct answers from the user (this will only show after answering the first question) and
-// displaying how the questions will be laid out on the screen).
+// Display the current question onto the page.
 function renderQuestion() {
 	// Get the current question.
-	var question = questions[questionOrderIndex][0];
-
-	// The current question position will be displayed as the new header by using the 'getItem' function, then inputting it into
-	// 'mainHeader' header. The current position will be the variable 'questionsAnswered' with 1 added because
-	// 'questionsAnswered' will start off as '0' meaning an extra value needs to be added.
-	// A question number can't start off as 0.
+	var question = testQuestions[questionsAnswered][0];
+	
+	// Fetch HTML components.
 	var testCont = document.getElementById("testCont");
 	var mainHeader = document.getElementById("mainHeader");
+	
+	// Display number of questions answered.
 	mainHeader.innerHTML = "Question " + (questionsAnswered + 1) + " of " + NUM_OF_QUESTIONS;
 
-	// This code will run only if the user has answered at least one question. The percentage of questions the user has currently got correct in the test
-	// will be added into the 'mainHeader' header and displayed under the current contents of the header.
-	if (total != 0) {
-		mainHeader.innerHTML += '<br>Currently: '+ (correct/total * 100).toFixed(0) + '% correct';
+	// Shows the user's current correct percentage (after answering at least 1 question).
+	if (questionsAnswered != 0) {
+		mainHeader.innerHTML += '<br>Currently: '+ (correct/questionsAnswered * 100).toFixed(0) + '% correct';
 	}
 
-	// This checks if specific words are in the question. For this case it's 'Select the' which will mean that the question will require a selection for the answer.
+	// If it's a multiple choice question.
 	if (question.indexOf("Select the") >= 0) {
-		
-		//The question is displayed.
 	    testCont.innerHTML = "<h3>" + question + "</h3>";
 		
-		// Adds each answer options (for the question) to the page.
-		for (var i = 0; i < questions[questionOrderIndex][1].length; i++) {
-			var radioBox = questions[questionOrderIndex][1][i];
-			testCont.innerHTML += "<label><input type='radio' name='choices' value='" + radioBox + "'>" + radioBox + "</label><br>";
+		// Display each option.
+		for (var i = 0; i < testQuestions[questionsAnswered][1].length; i++) {
+			var radioBox = testQuestions[questionsAnswered][1][i];
+			testCont.innerHTML += "<label><input type='radio' name='option' value='" + radioBox + "'>" + radioBox + "</label><br>";
 		}
-
-		// This displays the submit button and when it's clicked on, the 'checkSelectAnswer()' function will run.
+		
+		// Submit button.
 	    testCont.innerHTML += "<br><button onclick='checkSelectAnswer()'> Submit Answer </button>";
 
 	// This applies if the question has the text 'Translate:'.
 	} else if (question.indexOf("Translate:") >= 0) {
 		testCont.innerHTML = "<h3>" + question + "</h3>";
 
-		// This displays a textbox that allows the user to store the value the user types in. It has the ID 'Translate'.
+		// Textbox for input.
 		testCont.innerHTML += "<input type='text' id='Translate'><br><br>";
 
-		// This is the submit button that will lead to the 'checkTranslateAnswer()' function to check the answer.
-		// The answer checking process is different to the method used for the radio buttons.
+		// Submit button.
 		testCont.innerHTML += "<button onclick ='checkTranslateAnswer()'> Submit Answer </button>";
 	}
 }
 
-// This function will run through code that will check if the user's answer was correct or not with the radio button questions.
+// Checks the user's answer for a multiple choice question.
 function checkSelectAnswer() {
-	// All of the radio button choices are stored in an array and is equated to the variable 'choices'.
-	// It's stored in an array because all of the radio button are named 'choices'.
-	var choice = document.getElementsByName("choices");
+	// Stores each radio button as an array.
+	var options = document.getElementsByName("option");
 
 	var answerSelected = false;
 
 	// Checks if the user has selected an answer (radio button).
 	// Their answer will be stored if they have.
-	for (var i = 0; i < choice.length; i++) {
-        if (choice[i].checked) {
+	for (var i = 0; i < options.length; i++) {
+        if (options[i].checked) {
 			// Get the user's selected answer.
-			choice_selected = choice[i].value;
+			option_selected = options[i].value;
 			// Store the user's selected answer (the character/word is stored, not the letter).
-			userAnswer.push(choice_selected);
-			// The question the user is currently on is added into the 'userQuestion' array.
-			userQuestion.push(questions[questionOrderIndex]);
+			userAnswer.push(option_selected);
             answerSelected = true;
 			break;
         }
@@ -216,7 +189,7 @@ function checkSelectAnswer() {
 	}
 
 	// If the user's answer is correct.
-	if (choice_selected == questions[questionOrderIndex][2]) {
+	if (option_selected == testQuestions[questionsAnswered][2]) {
 		correct++;
 		alert("Correct.");
 		// Since the user has got the question correct, the word 'Correct' will be added into the 'questionStatus' array.
@@ -226,25 +199,17 @@ function checkSelectAnswer() {
 	// If it was incorrect.
 	} else {
 		alert("Incorrect.");
-		userQuestion.push(questions[questionOrderIndex]);
 
 		// Since the user got the question incorrect, the word 'Incorrect' will be added into the 'questionStatus' array.
 		// This is needed in order to display an element on the tables appropriately.
 		questionStatus.push("Incorrect");
 	}
 
-	// The 'total' variable will increment by 1. The 'total' variable will still increment by 1 if the user answers a translation question.
-	total++;
-
-	// 'questionsAnswered' increments by 1 at the end of checking an answer which will allow
-	// the next question to be selected in the 'questions' array. The variable 'questionOrderIndex'
-	// will get the next value of 'questionOrder' which  will be used to locate and display the next question in the 'questions' array.
 	questionsAnswered++;
-	questionOrderIndex = questionOrder[questionsAnswered];
 	progressNextQuestion();
 }
 
-// This function runs through code that checks if the user's answer for the translation answers are correct or not.
+// Checks the user's answer for a translation question.
 function checkTranslateAnswer() {
 	// A regex allowing spaces, apostrophes, lowercase and uppercase letters.
 	var lettersSpaces = /^[a-zA-Z-' ]+$/;
@@ -256,11 +221,9 @@ function checkTranslateAnswer() {
 	var translate_answer = (document.getElementById("Translate").value).toLowerCase();
 
 	// If the answer is correct.
-	if (questions[questionOrderIndex][1].includes(translate_answer)) {
+	if (testQuestions[questionsAnswered][1].includes(translate_answer)) {
 		correct++;
 		alert("Correct.");
-		userQuestion.push(questions[questionOrderIndex]);
-		userAnswer.push(translate_answer);
 		questionStatus.push("Correct");
 		
 	// If the input is over the character limit.
@@ -281,14 +244,11 @@ function checkTranslateAnswer() {
 	// If it's incorrect.
 	} else {
 		alert("Incorrect.");
-		userQuestion.push(questions[questionOrderIndex]);
-		userAnswer.push(translate_answer);
 		questionStatus.push("Incorrect");
 	}
 
-	total++;
-    questionsAnswered++;
-	questionOrderIndex = questionOrder[questionsAnswered];
+	questionsAnswered++;
+	userAnswer.push(translate_answer);
 	progressNextQuestion();
 }
 
@@ -304,25 +264,21 @@ function progressNextQuestion() {
 	}
 }
 
-// The function 'renderResults' displays the test results to the user, showing them how they did.
+// Shows the user's results.
 function renderResults() {
-	// The 'testCont' div is retrieved by ID (from the 'getItem' function created) and is stored in a variable called 'testCont'.
-  	var testCont = document.getElementById("testCont");
-
-	// The 'testCont' div is equated to the user's testCont results and it replaces any current 'testCont' div contents.
-  	testCont.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
-
-	// This displays a button that will lead to the 'results' function. This will lead to a function that will display the user's testCont results in a table.
-	// When the button is shown to the user, it will have the text 'View Results'.
+	// Update the header to indicate the test completion.
   	document.getElementById("mainHeader").innerHTML = "Test Completed";
+	
+	// Show how the user's result.
+  	var testCont = document.getElementById("testCont");
+  	testCont.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
+	
+	// Options for a retest or to view their results in more detail.
 	testCont.innerHTML += '<button onclick="showResults()"> View Results </a>';
-
-	// A button displayed as 'Re-test' will be inputted into the 'testCont' div. Clicking the button will result in the page in loading again.
-  	// 'location.reload()' will reload the current page which is the test page.
-  	testCont.innerHTML += '<br><br><button onclick="location.reload()"> Re-test </a> ';
+  	testCont.innerHTML += '<br><br><button onclick="location.reload()"> Retest </a> ';
 }
 
-// This function will display all the questions, user's answers and an example correct answer from the test the user has done.
+// Displays the user's results for each question in a tabular form.
 function showResults() {
 	// Create a table object.
 	var tblResults = document.createElement('table');
@@ -359,14 +315,14 @@ function showResults() {
 		colUserAnswer.style.border = "solid";
 		colCorrectAnswer.style.border = "solid";
 		
-		colQuestion.innerHTML = userQuestion[i][0];
+		colQuestion.innerHTML = testQuestions[i][0];
 		colUserAnswer.innerHTML = userAnswer[i];
 			
 		// If it's a translate question, then show the first correct answer.
-		if (userQuestion[i][0].indexOf("Translate:") >= 0) {
-			colCorrectAnswer.innerHTML = userQuestion[i][1][0];
+		if (testQuestions[i][0].indexOf("Translate:") >= 0) {
+			colCorrectAnswer.innerHTML = testQuestions[i][1][0];
 		} else {
-			colCorrectAnswer.innerHTML = userQuestion[i][2];
+			colCorrectAnswer.innerHTML = testQuestions[i][2];
 		}
 			
 		// Colour the cell based on the user's answer.
@@ -378,8 +334,8 @@ function showResults() {
 			colUserAnswer.style.border += "#FF0000";
 		}
 	}
-
-	// The table will be inserted into the test 'div' which will mean that the testCont 'div' will be equated to a variable.
+	
+	// Get the tag to insert the table.
 	var testCont = document.getElementById('testCont');
 
 	// Show the user's score and some text to help the user understand what's shown/highlighted on the table.
@@ -392,11 +348,10 @@ function showResults() {
 	testCont.innerHTML += '<br><button onclick="location.reload()"> Re-Test </a>';
 }
 
-// 'window.onload' allows the functions to be called when the page is accessed in order for the code
-// in the functions to run. 'setQuestionOrder()' will run first, then 'renderQuestion()' will run afterwards.
+// Run the functions stated when the page is loaded.
 window.onload = function() {
-  setQuestionOrder();
-  renderQuestion();
+	selectQuestions();
+	progressNextQuestion();
 }
 </script>
 </body>
