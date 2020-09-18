@@ -7,11 +7,70 @@
 <body>
 	<h1>Drawing Canvas</h1>
 		
-	<canvas id = "myCanvas"></canvas> 
+	<canvas id = "myCanvas"></canvas>
+	<input id = "btnClear" onclick = "clearCanvas()" type = "button" value = "Clear"></input>
 <script>
-// var canvas = document.getElementById("myCanvas");
-// var ctx = canvas.getContext("2d");
-		
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var mousePos = { x:0, y:0 };
+var mouseDown = false;
+
+// Size of the canvas in pixels (needed to draw accurately).
+ctx.canvas.width = 300; 
+ctx.canvas.height = 300;
+
+// Sets the current position of the mouse.
+function setPosition(e) {
+	mousePos.x = e.clientX - canvas.offsetLeft;
+	mousePos.y = e.clientY - canvas.offsetTop;
+}
+
+// Initialise the listeners for the canvas.
+function init() {
+	// Clicking/pressing the mouse.
+	canvas.addEventListener("mousedown", function (e) {
+		mouseDown = true;
+		setPosition(e);
+	}, false);
+	
+	// Moving the mouse.
+	canvas.addEventListener("mousemove", function (e) {
+		// Draw if the mouse is pressed.
+		if (mouseDown) {
+			ctx.beginPath();
+
+			ctx.lineWidth = 5;
+			ctx.lineJoin = "round";
+  
+			ctx.moveTo(mousePos.x, mousePos.y);
+			setPosition(e);
+			ctx.lineTo(mousePos.x, mousePos.y);
+			ctx.closePath();
+			ctx.stroke();
+		} 
+	}, false);
+	
+	// Releasing the mouse.
+	canvas.addEventListener("mouseup", function (e) {
+		mouseDown = false;
+	}, false);
+	
+	// If the mouse goes out of the canvas.
+	canvas.addEventListener("mouseout", function (e) {
+		mouseDown = false;
+	}, false);
+}
+
+// Clears the canvas.
+function clearCanvas() {
+	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+// Run the functions stated when the page is loaded.
+window.onload = function() {
+	init();
+}
 </script>
 </body>
 </html>

@@ -11,9 +11,14 @@ h1 {
 	display: block;
 	margin: auto;
 	
-	height: 300px;
-	width: 300px;
 	border: solid 3px black;
+}
+
+#btnClear {
+	cursor: pointer;
+	display: block;
+	margin: auto;
+	margin-top: 20px; 
 }
 
 
