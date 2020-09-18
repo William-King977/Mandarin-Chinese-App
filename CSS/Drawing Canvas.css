@@ -1,0 +1,21 @@
+/* CSS for menus with only buttons. */
+
+h1 {
+	text-align: center;
+	font-family: calibri;
+	font-size: 40;
+}
+
+#myCanvas {
+	/* Need both to centre the canvas. */
+	display: block;
+	margin: auto;
+	
+	height: 300px;
+	width: 300px;
+	border: solid 3px black;
+}
+
+
+
+
