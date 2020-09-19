@@ -46,11 +46,10 @@ var correct = 0;
 var testQuestions = [];
 const NUM_OF_QUESTIONS = 10;
 
-// This array will hold the user's answer that they inputted for each question.
+// Holds the user's answer and also holds if it was correct (or incorrect).
+// Used for displaying the user's answers in the results table.
+// NOTE: This is a 2-D array where each input is [answer, "(In)Correct"].
 var userAnswer = [];
-
-// This array will hold if the user was correct or not on a question.
-var questionStatus = [];
 
 // Translate questions for sentences. They have the question, then the possible answers.
 // Each question set is stored in a 2-D array.
@@ -165,7 +164,8 @@ function renderQuestion() {
 function checkSelectAnswer() {
 	// Stores each radio button as an array.
 	var options = document.getElementsByName("option");
-
+	
+	var option_selected;
 	var answerSelected = false;
 
 	// Checks if the user has selected an answer (radio button).
@@ -174,8 +174,6 @@ function checkSelectAnswer() {
         if (options[i].checked) {
 			// Get the user's selected answer.
 			option_selected = options[i].value;
-			// Store the user's selected answer (the character/word is stored, not the letter).
-			userAnswer.push(option_selected);
             answerSelected = true;
 			break;
         }
@@ -192,17 +190,12 @@ function checkSelectAnswer() {
 	if (option_selected == testQuestions[questionsAnswered][2]) {
 		correct++;
 		alert("Correct.");
-		// Since the user has got the question correct, the word 'Correct' will be added into the 'questionStatus' array.
-		// This is needed to compare if the user has got a question correct or not when displaying the table.
-		questionStatus.push("Correct");
+		userAnswer.push([option_selected, "Correct"]);
 
 	// If it was incorrect.
 	} else {
 		alert("Incorrect.");
-
-		// Since the user got the question incorrect, the word 'Incorrect' will be added into the 'questionStatus' array.
-		// This is needed in order to display an element on the tables appropriately.
-		questionStatus.push("Incorrect");
+		userAnswer.push([option_selected, "Incorrect"]);
 	}
 
 	questionsAnswered++;
@@ -224,7 +217,7 @@ function checkTranslateAnswer() {
 	if (testQuestions[questionsAnswered][1].includes(translate_answer)) {
 		correct++;
 		alert("Correct.");
-		questionStatus.push("Correct");
+		userAnswer.push([translate_answer, "Correct"]);
 		
 	// If the input is over the character limit.
 	} else if (translate_answer.length > 70) {
@@ -244,11 +237,10 @@ function checkTranslateAnswer() {
 	// If it's incorrect.
 	} else {
 		alert("Incorrect.");
-		questionStatus.push("Incorrect");
+		userAnswer.push([translate_answer, "Incorrect"]);
 	}
 
 	questionsAnswered++;
-	userAnswer.push(translate_answer);
 	progressNextQuestion();
 }
 
@@ -316,7 +308,7 @@ function showResults() {
 		colCorrectAnswer.style.border = "solid";
 		
 		colQuestion.innerHTML = testQuestions[i][0];
-		colUserAnswer.innerHTML = userAnswer[i];
+		colUserAnswer.innerHTML = userAnswer[i][0];
 			
 		// If it's a translate question, then show the first correct answer.
 		if (testQuestions[i][0].indexOf("Translate:") >= 0) {
@@ -327,7 +319,7 @@ function showResults() {
 			
 		// Colour the cell based on the user's answer.
 		// Colour it green if it was correct.
-		if (questionStatus[i] == "Correct") {
+		if (userAnswer[i][1] == "Correct") {
 			colUserAnswer.style.border += "#008000";
 		// Otherwise, colour it red (for incorrect).
 		} else {
