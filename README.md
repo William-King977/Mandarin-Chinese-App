@@ -1,5 +1,5 @@
 # About
-A Year 13 project which I didn't finish at the time. It's a web app that helps you learn Mandarin Chinese, but with only one lesson.
+A Year 13 project which I didn't finish at the time. It's an application that helps you learn Mandarin Chinese, but with only one lesson.
 This is a continuation of 'Prototype 3'. Adding new lessons will basically be a copy and paste of the first lesson.
 
 # Main Features
