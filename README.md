@@ -8,5 +8,8 @@ This is a continuation of 'Prototype 3'. Adding new lessons will basically be a 
 - **Memory Game:** Help memorise the new words by playing the tile flip game.
 - **Test Assessment:** Users are assessed on their knowledge of the new words with a mix of questions.
 
+# Video Demonstration
+A demo video that demonstrates all of the features: https://youtu.be/S7C2KcTR2gQ
+
 # Credits
-Character GIFs from Chinese Learn Online (https://www.chineselearnonline.com/activity/new-characters/lesson/2/).
+Character GIFs from Chinese Learn Online (https://www.chineselearnonline.com/).
