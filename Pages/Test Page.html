@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang = "en">
 <head>
 	<title> Test </title>
 	<link rel = "stylesheet" type = "text/css" href = "../CSS/Test Page.css"></link>
@@ -19,13 +20,13 @@
 <script>
 // Method to shuffle the questions. The code was found through research on the internet.
 Array.prototype.shuffle_questions = function() {
-    var i = this.length, j, temp;
-    while (--i > 0) {
-        j = Math.floor(Math.random() * (i + 1));
-        temp = this[j];
-        this[j] = this[i];
-        this[i] = temp;
-    }
+	var i = this.length, j, temp;
+	while (--i > 0) {
+		j = Math.floor(Math.random() * (i + 1));
+		temp = this[j];
+		this[j] = this[i];
+		this[i] = temp;
+	}
 }
 
 // Chinese characters are in their unicode representation.
@@ -54,16 +55,16 @@ var userAnswer = [];
 // Translate questions for sentences. They have the question, then the possible answers.
 // Each question set is stored in a 2-D array.
 var questionSet1 = [
-    ["Translate: \u4F60\u597D ", ["hello", "hi"]],
-    ["Translate: \u4F60\u597D\u5417?", ["how are you?", "how are you"]],
-    ["Translate: \u6211\u5F88\u597D", ["i'm good", "i'm fine", "i am good", "i am fine"]]
+	["Translate: \u4F60\u597D ", ["hello", "hi"]],
+	["Translate: \u4F60\u597D\u5417?", ["how are you?", "how are you"]],
+	["Translate: \u6211\u5F88\u597D", ["i'm good", "i'm fine", "i am good", "i am fine"]]
 ];
 
 // Translate questions for single characters. They have the question, then the possible answers.
 var questionSet2 = [
-    ["Translate: \u4F60", ["you"]],
-    ["Translate: \u60A8", ["you (polite version)", "you"]],
-    ["Translate: \u597D", ["good, fine", "good", "fine"]],
+	["Translate: \u4F60", ["you"]],
+	["Translate: \u60A8", ["you (polite version)", "you"]],
+	["Translate: \u597D", ["good, fine", "good", "fine"]],
 	["Translate: \u6211", ["i, me", "i", "me"]],
 	["Translate: \u5F88", ["very"]],
 	["Translate: \u5417", ["interrogative word (used at the end of a statement to form a question)", "interrogative word"]]
@@ -73,11 +74,11 @@ var questionSet2 = [
 var questionSet3 = [
 	["Select the word matching: \u4F60", ["You (Polite Version)", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)", "Good, fine"], "You"],
 	["Select the word matching: \u60A8", ["I, me", "Interrogative word (used at the end of a statement to form a question)", "You", "You (Polite Version)", "Good, fine", "Very"], "You (Polite Version)"],
-    ["Select the word matching: \u597D", ["You (Polite Version)", "Very", "Good, fine", "I, me", "Interrogative word (used at the end of a statement to form a question)", "You"], "Good, fine"],
+	["Select the word matching: \u597D", ["You (Polite Version)", "Very", "Good, fine", "I, me", "Interrogative word (used at the end of a statement to form a question)", "You"], "Good, fine"],
 	["Select the word matching:\u6211", ["Very", "You", "Good, fine", "Interrogative word (used at the end of a statement to form a question)", "I, me", "You (Polite Version)"], "I, me"],
 	["Select the word matching: \u5F88", ["Very", "Good, fine", "Interrogative word (used at the end of a statement to form a question)", "You", "I, me", "You (Polite Version)"], "Very"],
 	["Select the word matching: \u5417", ["You (Polite Version)", "Good, fine", "You", "I, me", "Very", "Interrogative word (used at the end of a statement to form a question)"], "Interrogative word (used at the end of a statement to form a question)"],
-    ["Select the character matching: You", [wo, ni, nin, hao, ma, hen], ni],
+	["Select the character matching: You", [wo, ni, nin, hao, ma, hen], ni],
 	["Select the character matching: You (Polite Version)", [nin, hen, wo, ma, ni, hao], nin],
 	["Select the character matching: Good, fine", [ma, hao, nin, ni, hen, wo], hao],
 	["Select the character matching: I, me", [hen, nin, ni, hao, ma, wo], wo],
@@ -137,7 +138,7 @@ function renderQuestion() {
 
 	// If it's a multiple choice question.
 	if (question.indexOf("Select the") >= 0) {
-	    testCont.innerHTML = "<h3>" + question + "</h3>";
+		testCont.innerHTML = "<h3>" + question + "</h3>";
 		
 		// Display each option.
 		for (var i = 0; i < testQuestions[questionsAnswered][1].length; i++) {
@@ -146,7 +147,7 @@ function renderQuestion() {
 		}
 		
 		// Submit button.
-	    testCont.innerHTML += "<br><button onclick='checkSelectAnswer()'> Submit Answer </button>";
+		testCont.innerHTML += "<br><button onclick='checkSelectAnswer()'> Submit Answer </button>";
 
 	// This applies if the question has the text 'Translate:'.
 	} else if (question.indexOf("Translate:") >= 0) {
@@ -171,17 +172,17 @@ function checkSelectAnswer() {
 	// Checks if the user has selected an answer (radio button).
 	// Their answer will be stored if they have.
 	for (var i = 0; i < options.length; i++) {
-        if (options[i].checked) {
+		if (options[i].checked) {
 			// Get the user's selected answer.
 			option_selected = options[i].value;
-            answerSelected = true;
+			answerSelected = true;
 			break;
-        }
-    }
+		}
+	}
 
 	// If there's no input.
 	if (!answerSelected) {
-        alert("Please select an answer.");
+		alert("Please select an answer.");
 		// User stays on the same question.
 		return false;
 	}
@@ -259,15 +260,15 @@ function progressNextQuestion() {
 // Shows the user's results.
 function renderResults() {
 	// Update the header to indicate the test completion.
-  	document.getElementById("mainHeader").innerHTML = "Test Completed";
+	document.getElementById("mainHeader").innerHTML = "Test Completed";
 	
 	// Show how the user's result.
-  	var testCont = document.getElementById("testCont");
-  	testCont.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
+	var testCont = document.getElementById("testCont");
+	testCont.innerHTML = "<h2>You got " + correct + " of " + NUM_OF_QUESTIONS +" questions correct</h2>";
 	
 	// Options for a retest or to view their results in more detail.
 	testCont.innerHTML += '<button onclick="showResults()"> View Results </a>';
-  	testCont.innerHTML += '<br><br><button onclick="location.reload()"> Retest </a> ';
+	testCont.innerHTML += '<br><br><button onclick="location.reload()"> Retest </a> ';
 }
 
 // Displays the user's results for each question in a tabular form.

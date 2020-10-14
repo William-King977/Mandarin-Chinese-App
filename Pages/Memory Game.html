@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang = "en">
 <head>
 	<title>Memory Game</title>
 	<link rel = "stylesheet" type = "text/css" href = "../CSS/Memory Game.css"></link>
@@ -112,26 +113,26 @@ var totalTilesFlipped = 0;
 
 // Method to shuffle the tiles. The code was found through research on the internet.
 Array.prototype.shuffle_tiles = function() {
-    var i = this.length, j, temp;
-    while (--i > 0) {
-        j = Math.floor(Math.random() * (i + 1));
-        temp = this[j];
-        this[j] = this[i];
-        this[i] = temp;
-    }
+	var i = this.length, j, temp;
+	while (--i > 0) {
+		j = Math.floor(Math.random() * (i + 1));
+		temp = this[j];
+		this[j] = this[i];
+		this[i] = temp;
+	}
 }
 
 // Generates a new board.
 function newBoard() {
 	totalTilesFlipped = 0;
 	var tiles_generated = '';
-    gameTiles.shuffle_tiles(); 
+	gameTiles.shuffle_tiles(); 
 	
 	// Add each tile onto the page with the functionality.
 	for (var i = 0; i < gameTiles.length; i++) {
 		// When a tile is clicked on, run the flipTile method.
 		tiles_generated  += "<div id = 'tile_" + i + "' onclick = 'flipTile(this,\"" + gameTiles[i] + "\")'></div>";
-	}   
+	}
 	
 	// Show the tiles on the page.
 	document.getElementById('memory_board').innerHTML = tiles_generated;
@@ -189,10 +190,10 @@ function flipTile(tile, value) {
 function flip_tiles_back() {
 	var tile_1 = document.getElementById(memory_tile_ids[0]);
 	var tile_2 = document.getElementById(memory_tile_ids[1]);
-    tile_1.innerHTML = "";
-    tile_2.innerHTML = "";
+	tile_1.innerHTML = "";
+	tile_2.innerHTML = "";
 	tilesSelected = [];
-    memory_tile_ids = [];
+	memory_tile_ids = [];
 }
 
 // Gets the tile value's index in its respective array.

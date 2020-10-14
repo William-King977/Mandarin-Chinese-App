@@ -1,12 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang = "en">
 <head>
 	<title>Drawing Canvas</title>
-	<link rel = "stylesheet" type = "text/css" href = "../CSS/Drawing Canvas.css"></link>
+	<link rel = "stylesheet" type = "text/css" href = "Drawing Canvas.css"></link>
 </head>
 
 <body>
 	<h1>Drawing Canvas</h1>
-		
+	
 	<canvas id = "myCanvas"></canvas>
 	<input id = "btnClear" onclick = "clearCanvas()" type = "button" value = "Clear"></input>
 <script>
@@ -40,7 +41,7 @@ function init() {
 		if (mouseDown) {
 			ctx.beginPath();
 
-			ctx.lineWidth = 5;
+			ctx.lineWidth = 10;
 			ctx.lineJoin = "round";
   
 			ctx.moveTo(mousePos.x, mousePos.y);
