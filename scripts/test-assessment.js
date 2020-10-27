@@ -1,23 +1,3 @@
-<!DOCTYPE html>
-<html lang = "en">
-<head>
-	<title> Test </title>
-	<link rel = "stylesheet" type = "text/css" href = "../CSS/Test Page.css"></link>
-</head>
-
-<body>
-	<div>
-		<!--'mainHeader' is the ID for header 1. JavaScript code later on will be used to retrieve the header by ID and change the contents.-->
-		<h1 id = "mainHeader">Chinese Mandarin Test</h1>
-
-		<div id="testCont"></div>
-
-		<!--This is the back button for the test page which is given a class of 'TestBack'.-->
-		<br><input class="btnBack" onClick="window.location.href = '5) Assessment Page.html'" type="button" value="Quit Test"/>
-
-	</div>
-
-<script>
 // Method to shuffle the questions. The code was found through research on the internet.
 Array.prototype.shuffle_questions = function() {
 	var i = this.length, j, temp;
@@ -346,6 +326,3 @@ window.onload = function() {
 	selectQuestions();
 	progressNextQuestion();
 }
-</script>
-</body>
-</html>
