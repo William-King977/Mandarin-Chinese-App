@@ -4,86 +4,25 @@ h1 {
 	font-size: 40;
 }
 
-.ni {
-	border-radius: 5px;
-	height: 100px;
-	width: 125px;
-	font-family: calibri;
+div {
 	text-align: center;
-	font-weight: bold;
-	font-size: 50;
-	cursor: pointer;
-	position: absolute;
-	right: calc(50% + 15px);
+	margin-bottom: 20px;
 }
 
-.nin {
+input {
 	border-radius: 5px;
 	height: 100px;
 	width: 125px;
 	font-family: calibri;
-	text-align: center;
 	font-weight: bold;
 	font-size: 50;
 	cursor: pointer;
-	position: absolute;
-	left: calc(50% + 15px);
-}
+	display: inline-block;
+	text-align: center;
 
-.hao {
-	border-radius: 5px;
-	height: 100px;
-	width: 125px;
-	font-family: calibri;
-	text-align: center;
-	font-weight: bold;
-	font-size: 50;
-	cursor: pointer;
-	position: absolute;
-	right: calc(50% + 15px);
-	margin-top: 120;
-}
-
-.wo {
-	border-radius: 5px;
-	height: 100px;
-	width: 125px;
-	font-family: calibri;
-	text-align: center;
-	font-weight: bold;
-	font-size: 50;
-	cursor: pointer;
-	position: absolute;
-	left: calc(50% + 15px);
-	margin-top: 120;
-}
-
-.hen {
-	border-radius: 5px;
-	height: 100px;
-	width: 125px;
-	font-family: calibri;
-	text-align: center;
-	font-weight: bold;
-	font-size: 50;
-	cursor: pointer;
-	position: absolute;
-	right: calc(50% + 15px);
-	margin-top: 240;
-}
-
-.ma {
-	border-radius: 5px;
-	height: 100px;
-	width: 125px;
-	font-family: calibri;
-	text-align: center;
-	font-weight: bold;
-	font-size: 50;
-	cursor: pointer;
-	position: absolute;
-	left: calc(50% + 15px);
-	margin-top: 240;
+	/* effectively gives a 20px margin between each button (from the sides) */
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .btnBack {
@@ -95,7 +34,6 @@ h1 {
 	font-weight: bold;
 	font-size: 24;
 	cursor: pointer;
-	position: absolute;
-	left: calc(50% - 50px);
-	margin-top: 360px;
+	display: block;
+	margin: auto;
 }
