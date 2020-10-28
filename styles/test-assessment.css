@@ -1,7 +1,7 @@
 h1 {
 	text-align: center;
 	font-family: calibri;
-	font-size: 40;
+	font-size: 40px;
 }
 
 div#testCont {
@@ -10,7 +10,7 @@ div#testCont {
 	 width: 600px;
 	 padding:10px 40px 40px 40px;
 	 font-family: calibri;
-	 font-size: 20;
+	 font-size: 20px;
 }
 
 .btnBack {
@@ -20,7 +20,7 @@ div#testCont {
 	font-family: calibri;
 	text-align: center;
 	font-weight: bold;
-	font-size: 24;
+	font-size: 24px;
 	cursor: pointer;
 	display: block;
 	margin: auto;
