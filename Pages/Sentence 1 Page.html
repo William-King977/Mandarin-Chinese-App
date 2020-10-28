@@ -3,40 +3,57 @@
 	<head>
 		<title>Sentences</title>
 		<link rel = "stylesheet" type = "text/css" href = "../styles/sentences.css"></link>
+		<!-- load in sound files. Buttons will reference these in order to play them. -->
+		<audio id="sentence1-1 sound" src="../sound-files/Ni Hao.mp3"></audio>
+		<audio id="sentence1-2 sound" src="../sound-files/Ni Hao.mp3"></audio>
 	</head>
 
 	<body>
 		<h1>Sentence 1</h1>
-		
-		<div class = "leftBox">
-		<!--Sound files are referenced because they will be used to show how to pronounce the Chinese Mandarin sentences.--> 
-		<audio id="sentence1-1 sound" src="../sound-files/Ni Hao.mp3"></audio>
-		<input class="pronunciation1" onClick="document.getElementById('sentence1-1 sound').play()" type="button" value="&#x1F50A;"/> 
-		
-		<audio id="sentence1-2 sound" src="../sound-files/Ni Hao.mp3"></audio>
-		<input class="pronunciation2" onClick="document.getElementById('sentence1-2 sound').play()" type="button" value="&#x1F50A;"/>
-		
-		<h2>Chinese Mandarin</h2>
-		
-		<!--The Chinese Mandarin sentences will have the unicode representation of the characters shown as well as having the pinyin for the characters underneath them.-->
-		<pre> Person 1: &#20320;&#22909;&#12290;
-		   n&#464; h&#462;o
-			
- Person 2: &#20320;&#22909;&#12290;
-		   n&#464; h&#462;o</pre>  
 
+		<!-- Chinese Mandarin sentences -->
+		<div class = "leftBox">
+			<h2>Chinese Mandarin</h2>
+			<!-- sentences are stored in tables for easy formatting. -->
+			<table>
+				<tr>
+					<td>Person 1: </td>
+					<td>&#20320; &#22909;&#12290;</td>
+					<td rowspan = "2"><input class="btn-pronunciation" onClick="document.getElementById('sentence1-1 sound').play()" 
+						type="button" value="&#x1F50A;"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>n&#464; h&#462;o</td>
+				</tr>
+
+				<!-- purely used to add whitespace between the sentences. -->
+				<tr><td id = "spacing-row"></td></tr>
+
+				<tr>
+					<td>Person 2: </td>
+					<td>&#20320; &#22909;&#12290;</td>
+					<td rowspan = "2"><input class="btn-pronunciation" onClick="document.getElementById('sentence1-2 sound').play()" 
+						type="button" value="&#x1F50A;"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>n&#464; h&#462;o</td>
+				</tr>
+			</table>
 		</div>
 		
-		<!--This tag defines a section of the page and CSS will be used to create a box with it. The box wilL contain the sentences.-->
-		<div class = "rightBox">  
-		
-		<!--This header is smaller than header 1 and this will be positioned below header 1. This will be done to the other header 2.-->
-		<h2>English</h2>  
-		
-		<!--The 'pre' tags allow text to be displayed the way they are typed in HTML. This means that multiple lines can be typed.-->  
-		<pre> Person 1: Hello.
- Person 2: Hello.</pre>
- 
+		<!-- English sentences -->
+		<div class = "rightBox">  	
+			<h2>English</h2>  
+			<table>
+				<tr>
+					<td id = "spacing-row">Person 1: Hello.</td>
+				</tr>
+				<tr>
+					<td>Person 2: Hello.</td>
+				</tr>
+			</table>
 		</div>
 		
 		<input class="btnBack" onClick="window.location.href = '4) Sentences Page.html'" type="button" value="Back"/>

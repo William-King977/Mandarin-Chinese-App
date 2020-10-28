@@ -33,30 +33,25 @@ h1 {
 }
 
 div#memory_board {
-	width:650px;
-	height:490px;
-	padding:24px;
+	width: 650px;
+	height: 490px;
+	padding: 24px;
 	margin: auto;
 	border-radius: 5px;
 	margin-bottom: 20px;
 	border: #000 1px solid;
 }
 
-/* Don't show the board if it's empty. */
-div#memory_board:empty { 
-display: none 
-}
-
-div#memory_board > div {
-	border:#000 1px solid;
+div#memory_board div {
+	border: #000 1px solid;
 	border-radius: 5px;
-	width:100px;
-	height:100px;
-	float:left;
-	margin:10px;
-	padding:20px;
-	font-size:30px;
-	cursor:pointer;
+	width: 100px;
+	height: 100px;
+	float: left;
+	margin: 10px;
+	padding: 20px;
+	font-size: 30px;
+	cursor: pointer;
 	text-align: center;
 	font-family: calibri;
 }

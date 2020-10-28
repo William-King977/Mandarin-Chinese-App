@@ -10,20 +10,23 @@ h2 {
 	font-size: 30;
 }
 
-
-pre {
-	font-size: 25;
+td {
+	font-size: 16pt;
 	font-weight: bold;
 	font-family: calibri;
+	padding-left: 10px;
+}
+
+#spacing-row {
+	padding-bottom: 30px;
 }
 
 .leftBox {
 	border: solid;
 	position: absolute;
 	right: 50%;
-	margin-top: 20px;
-	width: 25%;
-	height: 400px;
+	width: 300px;
+	height: 300px;
 	border-radius: 5px;
 }
 
@@ -31,36 +34,19 @@ pre {
 	border: solid;
 	position: absolute;
 	left: 50%;
-	margin-top: 20px;
-	width: 25%;
-	height: 400px;
+	width: 300px;
+	height: 300px;
 	border-radius: 5px;
 }
 
-.pronunciation1{
+.btn-pronunciation {
 	border-radius: 5px;
-	height: 46.875px;
+	height: 50px;
 	width: 60px;
 	font-family: calibri;
 	text-align: center;
-	font-size: 30;
+	font-size: 16pt;
 	cursor: pointer;
-	position: absolute;
-	left: calc(50% + 70px);
-	margin-top: 90px;
-}
-
-.pronunciation2{
-	border-radius: 5px;
-	height: 46.875px;
-	width: 60px;
-	font-family: calibri;
-	text-align: center;
-	font-size: 30;
-	cursor: pointer;
-	position: absolute;
-	left: calc(50% + 70px);
-	margin-top: 185px;
 }
 
 .btnBack {
@@ -72,7 +58,7 @@ pre {
 	font-weight: bold;
 	font-size: 24;
 	cursor: pointer;
-	margin-top: 440px;
+	margin-top: 330px;
 	position: absolute;
 	left: calc(50% - 50px);
 }

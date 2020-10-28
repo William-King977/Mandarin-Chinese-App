@@ -3,35 +3,57 @@
 	<head>
 		<title>Sentences</title>
 		<link rel = "stylesheet" type = "text/css" href = "../styles/sentences.css"></link>
+		<!-- load in sound files. Buttons will reference these in order to play them. -->
+		<audio id="sentence3-1 sound" src="../sound-files/Ni Hao Ma.mp3"></audio>
+		<audio id="sentence3-2 sound" src="../sound-files/Wo Hen Hao.mp3"></audio>
 	</head>
 
 	<body>
-		<div class = "outerlayer">
-
 		<h1>Sentence 3</h1>
 		
+		<!-- Chinese Mandarin sentences -->
 		<div class = "leftBox">
-		<audio id="sentence3-1 sound" src="../sound-files/Ni Hao Ma.mp3"></audio>
-		<input class="Pronunciation1" onClick="document.getElementById('sentence3-1 sound').play()" type="button" value="&#x1F50A;"/>
-		
-		<audio id="sentence3-2 sound" src="../sound-files/Wo Hen Hao.mp3"></audio>
-		<input class="Pronunciation2" onClick="document.getElementById('sentence3-2 sound').play()" type="button" value="&#x1F50A;"/>
-		
-		<h2>Chinese Mandarin</h2>
-		
-		<pre> Person 1: &#20320;&#22909;&#21527;?
-		  n&#464; h&#462;o ma
-			
- Person 2: &#25105;&#24456;&#22909;&#12290;
-		 w&#466; h&#283;n h&#462;o</pre>
-		
+			<h2>Chinese Mandarin</h2>
+			<!-- sentences are stored in tables for easy formatting. -->
+			<table>
+				<tr>
+					<td>Person 1: </td>
+					<td>&#20320; &#22909; &#21527;?</td>
+					<td rowspan = "2"><input class="btn-pronunciation" onClick="document.getElementById('sentence3-1 sound').play()" 
+						type="button" value="&#x1F50A;"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>n&#464; h&#462;o ma</td>
+				</tr>
+
+				<!-- purely used to add whitespace between the sentences (up and down). -->
+				<tr><td id = "spacing-row"></td></tr>
+
+				<tr>
+					<td>Person 2: </td>
+					<td>&#25105; &#24456; &#22909;&#12290;</td>
+					<td rowspan = "2"><input class="btn-pronunciation" onClick="document.getElementById('sentence3-2 sound').play()" 
+						type="button" value="&#x1F50A;"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>w&#466; h&#283;n h&#462;o</td>
+				</tr>
+			</table>
 		</div>
 
+		<!-- English sentences -->
 		<div class = "rightBox">
-		<h2>English</h2>
-		
-		<pre> Person 1: How are you?
- Person 2: I'm fine.</pre>
+			<h2>English</h2>
+			<table>
+				<tr>
+					<td id = "spacing-row">Person 1: How are you?</td>
+				</tr>
+				<tr>
+					<td>Person 2: I'm fine.</td>
+				</tr>
+			</table>
 		</div>
 		
 		<input class="btnBack" onClick="window.location.href = '4) Sentences Page.html'" type="button" value="Back"/>
