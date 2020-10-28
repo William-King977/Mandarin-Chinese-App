@@ -111,11 +111,6 @@ function renderQuestion() {
 	// Display number of questions answered.
 	mainHeader.innerHTML = "Question " + (questionsAnswered + 1) + " of " + NUM_OF_QUESTIONS;
 
-	// Shows the user's current correct percentage (after answering at least 1 question).
-	if (questionsAnswered != 0) {
-		mainHeader.innerHTML += '<br>Currently: '+ (correct/questionsAnswered * 100).toFixed(0) + '% correct';
-	}
-
 	// If it's a multiple choice question.
 	if (question.indexOf("Select the") >= 0) {
 		testCont.innerHTML = "<h3>" + question + "</h3>";
@@ -125,16 +120,21 @@ function renderQuestion() {
 			var radioBox = testQuestions[questionsAnswered][1][i];
 			testCont.innerHTML += "<label><input type='radio' name='option' value='" + radioBox + "'>" + radioBox + "</label><br>";
 		}
+		// Used to insert text for invalid input.
+		testCont.innerHTML += "<div id = 'invalid-input'></div><br>";
 		
 		// Submit button.
-		testCont.innerHTML += "<br><button onclick='checkSelectAnswer()'> Submit Answer </button>";
+		testCont.innerHTML += "<button onclick='checkSelectAnswer()'> Submit Answer </button>";
 
 	// This applies if the question has the text 'Translate:'.
 	} else if (question.indexOf("Translate:") >= 0) {
 		testCont.innerHTML = "<h3>" + question + "</h3>";
 
 		// Textbox for input.
-		testCont.innerHTML += "<input type='text' id='Translate'><br><br>";
+		testCont.innerHTML += "<input type='text' id='Translate'>";
+
+		// Used to insert text for invalid input.
+		testCont.innerHTML += "<div id = 'invalid-input'></div><br>";
 
 		// Submit button.
 		testCont.innerHTML += "<button onclick ='checkTranslateAnswer()'> Submit Answer </button>";
@@ -145,6 +145,8 @@ function renderQuestion() {
 function checkSelectAnswer() {
 	// Stores each radio button as an array.
 	var options = document.getElementsByName("option");
+	// Fetch the div to insert the a message if the user's input is invalid.
+	var invalidInputDiv = document.getElementById("invalid-input");
 	
 	var option_selected;
 	var answerSelected = false;
@@ -162,7 +164,7 @@ function checkSelectAnswer() {
 
 	// If there's no input.
 	if (!answerSelected) {
-		alert("Please select an answer.");
+		invalidInputDiv.innerText = "Please select an answer.";
 		// User stays on the same question.
 		return false;
 	}
@@ -170,12 +172,10 @@ function checkSelectAnswer() {
 	// If the user's answer is correct.
 	if (option_selected == testQuestions[questionsAnswered][2]) {
 		correct++;
-		alert("Correct.");
 		userAnswer.push([option_selected, "Correct"]);
 
 	// If it was incorrect.
 	} else {
-		alert("Incorrect.");
 		userAnswer.push([option_selected, "Incorrect"]);
 	}
 
@@ -193,31 +193,31 @@ function checkTranslateAnswer() {
 
 	// The answer the user typed in is retrieved by ID and it's all set to lowercase.
 	var translate_answer = (document.getElementById("Translate").value).toLowerCase();
+	// Fetch the div to insert the a message if the user's input is invalid.
+	var invalidInputDiv = document.getElementById("invalid-input");
 
 	// If the answer is correct.
 	if (testQuestions[questionsAnswered][1].includes(translate_answer)) {
 		correct++;
-		alert("Correct.");
 		userAnswer.push([translate_answer, "Correct"]);
 		
 	// If the input is over the character limit.
 	} else if (translate_answer.length > 70) {
-		alert("Please enter a suitable length answer that is less than 70 characters.")
+		invalidInputDiv.innerText = "Please enter a suitable length answer that is less than 70 characters.";
 		return false;
 
 	// If there is no input.
 	} else if (spacesOrNoInput.test(translate_answer)){
-		alert("Please enter an answer.");
+		invalidInputDiv.innerText = "Please enter an answer.";
 		return false;
 
 	// If non-alphabetic characters were entered.
 	} else if (!lettersSpaces.test(translate_answer)){
-		alert("Please enter a valid answer with letters and suitable spaces only.");
+		invalidInputDiv.innerText = "Please enter a valid answer with letters and suitable spaces only.";
 		return false;
 
 	// If it's incorrect.
 	} else {
-		alert("Incorrect.");
 		userAnswer.push([translate_answer, "Incorrect"]);
 	}
 

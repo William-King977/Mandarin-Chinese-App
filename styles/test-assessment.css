@@ -4,13 +4,28 @@ h1 {
 	font-size: 40px;
 }
 
-div#testCont {
+div #testCont {
 	 border: 1px solid; 
 	 margin: auto;
 	 width: 600px;
 	 padding:10px 40px 40px 40px;
 	 font-family: calibri;
 	 font-size: 20px;
+}
+
+#invalid-input {
+	font-weight: bold;
+	font-size: 12pt;
+	color: red;
+}
+
+div #testCont button {
+	border-radius: 5px;
+	font-family: calibri;
+	font-size: 14pt;
+	text-align: center;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 .btnBack {
