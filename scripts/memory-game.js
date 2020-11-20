@@ -92,14 +92,13 @@ var tilesSelected = [];
 var memory_tile_ids = [];  
 var totalTilesFlipped = 0;
 
-// Method to shuffle the tiles. The code was found through research on the internet.
-Array.prototype.shuffle_tiles = function() {
-	var i = this.length, j, temp;
-	while (--i > 0) {
-		j = Math.floor(Math.random() * (i + 1));
-		temp = this[j];
-		this[j] = this[i];
-		this[i] = temp;
+// Shuffle the tiles for the game.
+function shuffleArray(array) {
+	for (var i = array.length - 1; i > 0; i--) {
+		var j = Math.floor(Math.random() * (i + 1));
+		var temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
 	}
 }
 
@@ -107,7 +106,7 @@ Array.prototype.shuffle_tiles = function() {
 function newBoard() {
 	totalTilesFlipped = 0;
 	var tiles_generated = '';
-	gameTiles.shuffle_tiles(); 
+	shuffleArray(gameTiles);
 	
 	// Add each tile onto the page with the functionality.
 	for (var i = 0; i < gameTiles.length; i++) {

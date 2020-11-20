@@ -1,11 +1,10 @@
-// Method to shuffle the questions. The code was found through research on the internet.
-Array.prototype.shuffle_questions = function() {
-	var i = this.length, j, temp;
-	while (--i > 0) {
-		j = Math.floor(Math.random() * (i + 1));
-		temp = this[j];
-		this[j] = this[i];
-		this[i] = temp;
+// Shuffles the array contents.
+function shuffleArray(array) {
+	for (var i = array.length - 1; i > 0; i--) {
+		var j = Math.floor(Math.random() * (i + 1));
+		var temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
 	}
 }
 
@@ -70,13 +69,13 @@ var questionSet3 = [
 function randomiseQuestions() {
 	// Shuffle the options for the multiple choice questions.
 	for (var i = 0; i < questionSet3.length; i++) {
-		questionSet3[i][1].shuffle_questions();
+		shuffleArray(questionSet3[i][1]);
 	}
 	
 	// Shuffle each question set.
-	questionSet1.shuffle_questions();
-	questionSet2.shuffle_questions();
-	questionSet3.shuffle_questions();
+	shuffleArray(questionSet1);
+	shuffleArray(questionSet2);
+	shuffleArray(questionSet3);
 }
 
 // Selects the questions for the test.
@@ -96,7 +95,7 @@ function selectQuestions() {
 	}
 	
 	// Shuffle the questions for the test.
-	testQuestions.shuffle_questions();
+	shuffleArray(testQuestions);
 }
 
 // Display the current question onto the page.
